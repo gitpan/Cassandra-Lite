@@ -28,13 +28,12 @@
       "runtime" : {
          "requires" : {
             "Any::Moose" : 0,
-            "Cassandra::Cassandra" : 0,
-            "Cassandra::Constants" : 0,
-            "Cassandra::Types" : 0,
+            "Class::Accessor" : 0,
             "Thrift" : 0,
             "Thrift::BinaryProtocol" : 0,
             "Thrift::FramedTransport" : 0,
             "Thrift::Socket" : 0,
+            "constant" : 0,
             "perl" : "5.010"
          }
       },
@@ -46,12 +45,15 @@
    },
    "release_status" : "stable",
    "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/gslin/cassandra-lite-perl/issues"
+      },
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/gslin/cassandra-lite-perl.git",
          "web" : "https://github.com/gslin/cassandra-lite-perl"
       }
    },
-   "version" : "0.0.1"
+   "version" : "0.0.2"
 }
 

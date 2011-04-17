@@ -25,15 +25,14 @@ my %WriteMakefileArgs = (
   'NAME' => 'Cassandra::Lite',
   'PREREQ_PM' => {
     'Any::Moose' => '0',
-    'Cassandra::Cassandra' => '0',
-    'Cassandra::Constants' => '0',
-    'Cassandra::Types' => '0',
+    'Class::Accessor' => '0',
     'Thrift' => '0',
     'Thrift::BinaryProtocol' => '0',
     'Thrift::FramedTransport' => '0',
-    'Thrift::Socket' => '0'
+    'Thrift::Socket' => '0',
+    'constant' => '0'
   },
-  'VERSION' => '0.0.1',
+  'VERSION' => '0.0.2',
   'test' => {
     'TESTS' => 't/*.t'
   }

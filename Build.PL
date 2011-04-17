@@ -19,20 +19,19 @@ my %module_build_args = (
     'Gea-Suan Lin <gslin@gslin.org>'
   ],
   'dist_name' => 'Cassandra-Lite',
-  'dist_version' => '0.0.1',
+  'dist_version' => '0.0.2',
   'license' => 'bsd',
   'module_name' => 'Cassandra::Lite',
   'recommends' => {},
   'recursive_test_files' => 1,
   'requires' => {
     'Any::Moose' => '0',
-    'Cassandra::Cassandra' => '0',
-    'Cassandra::Constants' => '0',
-    'Cassandra::Types' => '0',
+    'Class::Accessor' => '0',
     'Thrift' => '0',
     'Thrift::BinaryProtocol' => '0',
     'Thrift::FramedTransport' => '0',
     'Thrift::Socket' => '0',
+    'constant' => '0',
     'perl' => '5.010'
   },
   'script_files' => []
