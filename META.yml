@@ -27,4 +27,4 @@ requires:
 resources:
   bugtracker: https://github.com/gslin/cassandra-lite-perl/issues
   repository: git://github.com/gslin/cassandra-lite-perl.git
-version: 0.0.3
+version: 0.0.4

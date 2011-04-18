@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.0.3';
+  $Cassandra::Lite::VERSION = '0.0.4';
 }
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ Cassandra::Lite - Simple way to access Cassandra 0.7
 
 =head1 VERSION
 
-version 0.0.3
+version 0.0.4
 
 =head1 DESCRIPTION
 
@@ -30,6 +30,8 @@ You'll need to install Thrift perl modules first to use Cassandra::Lite.
                 server_port => 9160,            # optional, default to 9160
                 username => 'username',         # optional, default to empty string ''
                 password => 'xxx',              # optional, default to empty string ''
+                consistency_level_read => 'ONE' # optional, default to 'ONE'
+                consistency_level_write => 'ONE' # optional, default to 'ONE'
                 keyspace => 'Keyspace1',
             );
 
@@ -50,16 +52,20 @@ You'll need to install Thrift perl modules first to use Cassandra::Lite.
     my $res4 = $c->get_slice($columnFamily, $key, {range => ['sliceKeyStart', 'sliceKeyFinish']});
 
     # Get a column
-    my $v = $c->get($columnFamily, $key, 'title');
+    my $v1 = $c->get($columnFamily, $key, 'title');
+
+    # Higher consistency level
+    my $v2 = $c->get($columnFamily, $key, 'title', {consistency_level => 'QUORUM'});
 
     # Remove it
-    $c->remove($columnFamily, $key, {timestamp => time});       # You can specify timestamp (optional)
+    $c->remove($columnFamily, $key, {timestamp => time});       # You can specify timestamp (optional) and consistency_level (optional)
 
     # Change keyspace
     $c->keyspace('BlogArticleComment');
 
     # Get count
-    my $num = $c->get_count('Foo', 'key1');
+    my $num1 = $c->get_count('Foo', 'key1');
+    my $num2 = $c->get_count('Foo', 'key2', {consistency_level => 'ALL'});
 
     ...
 
@@ -67,6 +73,8 @@ You'll need to install Thrift perl modules first to use Cassandra::Lite.
 
 use Any::Moose;
 has 'client' => (is => 'rw', isa => 'Cassandra::CassandraClient', lazy_build => 1);
+has 'consistency_level_read' => (is => 'rw', isa => 'Str', default => 'ONE');
+has 'consistency_level_write' => (is => 'rw', isa => 'Str', default => 'ONE');
 has 'keyspace' => (is => 'rw', isa => 'Str', trigger => \&_trigger_keyspace);
 has 'password' => (is => 'rw', isa => 'Str', default => '');
 has 'protocol' => (is => 'rw', isa => 'Thrift::BinaryProtocol', lazy_build => 1);
@@ -112,6 +120,26 @@ sub _build_transport {
     Thrift::FramedTransport->new($self->socket, 1024, 1024);
 }
 
+sub _consistency_level_read {
+    my $self = shift;
+    my $opt = shift // {};
+
+    my $level = $opt->{consistency_level} // $self->consistency_level_read;
+
+    eval "\$level = Cassandra::ConsistencyLevel::$level;";
+    $level;
+}
+
+sub _consistency_level_write {
+    my $self = shift;
+    my $opt = shift // {};
+
+    my $level = $opt->{consistency_level} // $self->consistency_level_write;
+
+    eval "\$level = Cassandra::ConsistencyLevel::$level;";
+    $level;
+}
+
 sub _login {
     my $self = shift;
     my $client = shift;
@@ -136,10 +164,12 @@ sub get {
     my $columnFamily = shift;
     my $key = shift;
     my $column = shift;
+    my $opt = shift // {};
 
     my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily, column => $column});
+    my $level = $self->_consistency_level_read($opt);
 
-    $self->client->get($key, $columnPath);
+    $self->client->get($key, $columnPath, $level);
 }
 
 =head2 get_count
@@ -167,7 +197,9 @@ sub get_count {
     my $predicate = Cassandra::SlicePredicate->new;
     $predicate->{slice_range} = $sliceRange;
 
-    $self->client->get_count($key, $columnParent, $predicate);
+    my $level = $self->_consistency_level_read($opt);
+
+    $self->client->get_count($key, $columnParent, $predicate, $level);
 }
 
 =head2 get_slice
@@ -195,7 +227,9 @@ sub get_slice {
     my $predicate = Cassandra::SlicePredicate->new;
     $predicate->{slice_range} = $sliceRange;
 
-    $self->client->get_slice($key, $columnParent, $predicate);
+    my $level = $self->_consistency_level_read($opt);
+
+    $self->client->get_slice($key, $columnParent, $predicate, $level);
 }
 
 =head2 insert
@@ -219,7 +253,9 @@ sub insert {
         $column->{timestamp} = $opt->{timestamp} // time;
     }
 
-    $self->client->insert($key, $columnParent, $column);
+    my $level = $self->_consistency_level_write($opt);
+
+    $self->client->insert($key, $columnParent, $column, $level);
 }
 
 =head2 remove
@@ -236,7 +272,9 @@ sub remove {
     my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily});
     my $timestamp = $opt->{timestamp} // time;
 
-    $self->client->remove($key, $columnPath, $timestamp);
+    my $level = $self->_consistency_level_write($opt);
+
+    $self->client->remove($key, $columnPath, $timestamp, $level);
 }
 
 =head1 SEEALSO
