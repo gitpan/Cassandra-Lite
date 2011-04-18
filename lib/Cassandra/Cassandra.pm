@@ -14,7 +14,7 @@ use Cassandra::Types;
 
 package Cassandra::Cassandra_login_args;
 BEGIN {
-  $Cassandra::Cassandra_login_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_login_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_login_args->mk_accessors( qw( auth_request ) );
@@ -82,7 +82,7 @@ sub write {
 
 package Cassandra::Cassandra_login_result;
 BEGIN {
-  $Cassandra::Cassandra_login_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_login_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_login_result->mk_accessors( qw( ) );
@@ -166,7 +166,7 @@ sub write {
 
 package Cassandra::Cassandra_set_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_set_keyspace_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_set_keyspace_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_set_keyspace_args->mk_accessors( qw( keyspace ) );
@@ -233,7 +233,7 @@ sub write {
 
 package Cassandra::Cassandra_set_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_set_keyspace_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_set_keyspace_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_set_keyspace_result->mk_accessors( qw( ) );
@@ -301,7 +301,7 @@ sub write {
 
 package Cassandra::Cassandra_get_args;
 BEGIN {
-  $Cassandra::Cassandra_get_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_args->mk_accessors( qw( key column_path consistency_level ) );
@@ -399,7 +399,7 @@ sub write {
 
 package Cassandra::Cassandra_get_result;
 BEGIN {
-  $Cassandra::Cassandra_get_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_result->mk_accessors( qw( success ) );
@@ -531,7 +531,7 @@ sub write {
 
 package Cassandra::Cassandra_get_slice_args;
 BEGIN {
-  $Cassandra::Cassandra_get_slice_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_slice_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_slice_args->mk_accessors( qw( key column_parent predicate consistency_level ) );
@@ -645,7 +645,7 @@ sub write {
 
 package Cassandra::Cassandra_get_slice_result;
 BEGIN {
-  $Cassandra::Cassandra_get_slice_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_slice_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_slice_result->mk_accessors( qw( success ) );
@@ -782,7 +782,7 @@ sub write {
 
 package Cassandra::Cassandra_get_count_args;
 BEGIN {
-  $Cassandra::Cassandra_get_count_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_count_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_count_args->mk_accessors( qw( key column_parent predicate consistency_level ) );
@@ -896,7 +896,7 @@ sub write {
 
 package Cassandra::Cassandra_get_count_result;
 BEGIN {
-  $Cassandra::Cassandra_get_count_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_count_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_count_result->mk_accessors( qw( success ) );
@@ -1011,7 +1011,7 @@ sub write {
 
 package Cassandra::Cassandra_multiget_slice_args;
 BEGIN {
-  $Cassandra::Cassandra_multiget_slice_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_multiget_slice_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_multiget_slice_args->mk_accessors( qw( keys column_parent predicate consistency_level ) );
@@ -1146,7 +1146,7 @@ sub write {
 
 package Cassandra::Cassandra_multiget_slice_result;
 BEGIN {
-  $Cassandra::Cassandra_multiget_slice_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_multiget_slice_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_multiget_slice_result->mk_accessors( qw( success ) );
@@ -1308,7 +1308,7 @@ sub write {
 
 package Cassandra::Cassandra_multiget_count_args;
 BEGIN {
-  $Cassandra::Cassandra_multiget_count_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_multiget_count_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_multiget_count_args->mk_accessors( qw( keys column_parent predicate consistency_level ) );
@@ -1443,7 +1443,7 @@ sub write {
 
 package Cassandra::Cassandra_multiget_count_result;
 BEGIN {
-  $Cassandra::Cassandra_multiget_count_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_multiget_count_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_multiget_count_result->mk_accessors( qw( success ) );
@@ -1583,7 +1583,7 @@ sub write {
 
 package Cassandra::Cassandra_get_range_slices_args;
 BEGIN {
-  $Cassandra::Cassandra_get_range_slices_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_range_slices_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_range_slices_args->mk_accessors( qw( column_parent predicate range consistency_level ) );
@@ -1698,7 +1698,7 @@ sub write {
 
 package Cassandra::Cassandra_get_range_slices_result;
 BEGIN {
-  $Cassandra::Cassandra_get_range_slices_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_range_slices_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_range_slices_result->mk_accessors( qw( success ) );
@@ -1835,7 +1835,7 @@ sub write {
 
 package Cassandra::Cassandra_get_indexed_slices_args;
 BEGIN {
-  $Cassandra::Cassandra_get_indexed_slices_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_indexed_slices_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_indexed_slices_args->mk_accessors( qw( column_parent index_clause column_predicate consistency_level ) );
@@ -1950,7 +1950,7 @@ sub write {
 
 package Cassandra::Cassandra_get_indexed_slices_result;
 BEGIN {
-  $Cassandra::Cassandra_get_indexed_slices_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_get_indexed_slices_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_indexed_slices_result->mk_accessors( qw( success ) );
@@ -2087,7 +2087,7 @@ sub write {
 
 package Cassandra::Cassandra_insert_args;
 BEGIN {
-  $Cassandra::Cassandra_insert_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_insert_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_insert_args->mk_accessors( qw( key column_parent column consistency_level ) );
@@ -2201,7 +2201,7 @@ sub write {
 
 package Cassandra::Cassandra_insert_result;
 BEGIN {
-  $Cassandra::Cassandra_insert_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_insert_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_insert_result->mk_accessors( qw( ) );
@@ -2301,7 +2301,7 @@ sub write {
 
 package Cassandra::Cassandra_remove_args;
 BEGIN {
-  $Cassandra::Cassandra_remove_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_remove_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_remove_args->mk_accessors( qw( key column_path timestamp consistency_level ) );
@@ -2414,7 +2414,7 @@ sub write {
 
 package Cassandra::Cassandra_remove_result;
 BEGIN {
-  $Cassandra::Cassandra_remove_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_remove_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_remove_result->mk_accessors( qw( ) );
@@ -2514,7 +2514,7 @@ sub write {
 
 package Cassandra::Cassandra_batch_mutate_args;
 BEGIN {
-  $Cassandra::Cassandra_batch_mutate_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_batch_mutate_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_batch_mutate_args->mk_accessors( qw( mutation_map consistency_level ) );
@@ -2668,7 +2668,7 @@ sub write {
 
 package Cassandra::Cassandra_batch_mutate_result;
 BEGIN {
-  $Cassandra::Cassandra_batch_mutate_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_batch_mutate_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_batch_mutate_result->mk_accessors( qw( ) );
@@ -2768,7 +2768,7 @@ sub write {
 
 package Cassandra::Cassandra_truncate_args;
 BEGIN {
-  $Cassandra::Cassandra_truncate_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_truncate_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_truncate_args->mk_accessors( qw( cfname ) );
@@ -2835,7 +2835,7 @@ sub write {
 
 package Cassandra::Cassandra_truncate_result;
 BEGIN {
-  $Cassandra::Cassandra_truncate_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_truncate_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_truncate_result->mk_accessors( qw( ) );
@@ -2919,7 +2919,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_schema_versions_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_schema_versions_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_schema_versions_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 
@@ -2968,7 +2968,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_schema_versions_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_schema_versions_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_schema_versions_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_schema_versions_result->mk_accessors( qw( success ) );
@@ -3097,7 +3097,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_keyspaces_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_keyspaces_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_keyspaces_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 
@@ -3146,7 +3146,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_keyspaces_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_keyspaces_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_keyspaces_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_keyspaces_result->mk_accessors( qw( success ) );
@@ -3251,7 +3251,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_cluster_name_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_cluster_name_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_cluster_name_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 
@@ -3300,7 +3300,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_cluster_name_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_cluster_name_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_cluster_name_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_cluster_name_result->mk_accessors( qw( success ) );
@@ -3367,7 +3367,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_version_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_version_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_version_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 
@@ -3416,7 +3416,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_version_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_version_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_version_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_version_result->mk_accessors( qw( success ) );
@@ -3483,7 +3483,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_ring_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_ring_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_ring_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_ring_args->mk_accessors( qw( keyspace ) );
@@ -3550,7 +3550,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_ring_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_ring_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_ring_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_ring_result->mk_accessors( qw( success ) );
@@ -3655,7 +3655,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_partitioner_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_partitioner_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_partitioner_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 
@@ -3704,7 +3704,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_partitioner_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_partitioner_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_partitioner_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_partitioner_result->mk_accessors( qw( success ) );
@@ -3771,7 +3771,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_snitch_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_snitch_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_snitch_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 
@@ -3820,7 +3820,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_snitch_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_snitch_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_snitch_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_snitch_result->mk_accessors( qw( success ) );
@@ -3887,7 +3887,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_keyspace_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_keyspace_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_keyspace_args->mk_accessors( qw( keyspace ) );
@@ -3954,7 +3954,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_keyspace_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_keyspace_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_keyspace_result->mk_accessors( qw( success ) );
@@ -4054,7 +4054,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_splits_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_splits_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_splits_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_splits_args->mk_accessors( qw( cfName start_token end_token keys_per_split ) );
@@ -4166,7 +4166,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_splits_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_splits_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_describe_splits_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_splits_result->mk_accessors( qw( success ) );
@@ -4254,7 +4254,7 @@ sub write {
 
 package Cassandra::Cassandra_system_add_column_family_args;
 BEGIN {
-  $Cassandra::Cassandra_system_add_column_family_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_add_column_family_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_add_column_family_args->mk_accessors( qw( cf_def ) );
@@ -4322,7 +4322,7 @@ sub write {
 
 package Cassandra::Cassandra_system_add_column_family_result;
 BEGIN {
-  $Cassandra::Cassandra_system_add_column_family_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_add_column_family_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_add_column_family_result->mk_accessors( qw( success ) );
@@ -4405,7 +4405,7 @@ sub write {
 
 package Cassandra::Cassandra_system_drop_column_family_args;
 BEGIN {
-  $Cassandra::Cassandra_system_drop_column_family_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_drop_column_family_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_drop_column_family_args->mk_accessors( qw( column_family ) );
@@ -4472,7 +4472,7 @@ sub write {
 
 package Cassandra::Cassandra_system_drop_column_family_result;
 BEGIN {
-  $Cassandra::Cassandra_system_drop_column_family_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_drop_column_family_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_drop_column_family_result->mk_accessors( qw( success ) );
@@ -4555,7 +4555,7 @@ sub write {
 
 package Cassandra::Cassandra_system_add_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_system_add_keyspace_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_add_keyspace_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_add_keyspace_args->mk_accessors( qw( ks_def ) );
@@ -4623,7 +4623,7 @@ sub write {
 
 package Cassandra::Cassandra_system_add_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_system_add_keyspace_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_add_keyspace_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_add_keyspace_result->mk_accessors( qw( success ) );
@@ -4706,7 +4706,7 @@ sub write {
 
 package Cassandra::Cassandra_system_drop_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_system_drop_keyspace_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_drop_keyspace_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_drop_keyspace_args->mk_accessors( qw( keyspace ) );
@@ -4773,7 +4773,7 @@ sub write {
 
 package Cassandra::Cassandra_system_drop_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_system_drop_keyspace_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_drop_keyspace_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_drop_keyspace_result->mk_accessors( qw( success ) );
@@ -4856,7 +4856,7 @@ sub write {
 
 package Cassandra::Cassandra_system_update_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_system_update_keyspace_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_update_keyspace_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_update_keyspace_args->mk_accessors( qw( ks_def ) );
@@ -4924,7 +4924,7 @@ sub write {
 
 package Cassandra::Cassandra_system_update_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_system_update_keyspace_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_update_keyspace_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_update_keyspace_result->mk_accessors( qw( success ) );
@@ -5007,7 +5007,7 @@ sub write {
 
 package Cassandra::Cassandra_system_update_column_family_args;
 BEGIN {
-  $Cassandra::Cassandra_system_update_column_family_args::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_update_column_family_args::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_update_column_family_args->mk_accessors( qw( cf_def ) );
@@ -5075,7 +5075,7 @@ sub write {
 
 package Cassandra::Cassandra_system_update_column_family_result;
 BEGIN {
-  $Cassandra::Cassandra_system_update_column_family_result::VERSION = '0.0.2';
+  $Cassandra::Cassandra_system_update_column_family_result::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_update_column_family_result->mk_accessors( qw( success ) );
@@ -5158,7 +5158,7 @@ sub write {
 
 package Cassandra::CassandraIf;
 BEGIN {
-  $Cassandra::CassandraIf::VERSION = '0.0.2';
+  $Cassandra::CassandraIf::VERSION = '0.0.3';
 }
 
 use strict;
@@ -5386,7 +5386,7 @@ sub system_update_column_family{
 
 package Cassandra::CassandraRest;
 BEGIN {
-  $Cassandra::CassandraRest::VERSION = '0.0.2';
+  $Cassandra::CassandraRest::VERSION = '0.0.3';
 }
 
 use strict;
@@ -5621,7 +5621,7 @@ sub system_update_column_family{
 
 package Cassandra::CassandraClient;
 BEGIN {
-  $Cassandra::CassandraClient::VERSION = '0.0.2';
+  $Cassandra::CassandraClient::VERSION = '0.0.3';
 }
 
 
@@ -7036,7 +7036,7 @@ sub recv_system_update_column_family{
 }
 package Cassandra::CassandraProcessor;
 BEGIN {
-  $Cassandra::CassandraProcessor::VERSION = '0.0.2';
+  $Cassandra::CassandraProcessor::VERSION = '0.0.3';
 }
 
 use strict;

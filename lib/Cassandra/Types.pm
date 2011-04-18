@@ -10,7 +10,7 @@ use Thrift;
 
 package Cassandra::ConsistencyLevel;
 BEGIN {
-  $Cassandra::ConsistencyLevel::VERSION = '0.0.2';
+  $Cassandra::ConsistencyLevel::VERSION = '0.0.3';
 }
 use constant ONE => 1;
 use constant QUORUM => 2;
@@ -22,7 +22,7 @@ use constant TWO => 7;
 use constant THREE => 8;
 package Cassandra::IndexOperator;
 BEGIN {
-  $Cassandra::IndexOperator::VERSION = '0.0.2';
+  $Cassandra::IndexOperator::VERSION = '0.0.3';
 }
 use constant EQ => 0;
 use constant GTE => 1;
@@ -31,12 +31,12 @@ use constant LTE => 3;
 use constant LT => 4;
 package Cassandra::IndexType;
 BEGIN {
-  $Cassandra::IndexType::VERSION = '0.0.2';
+  $Cassandra::IndexType::VERSION = '0.0.3';
 }
 use constant KEYS => 0;
 package Cassandra::Column;
 BEGIN {
-  $Cassandra::Column::VERSION = '0.0.2';
+  $Cassandra::Column::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Column->mk_accessors( qw( name value timestamp ttl ) );
@@ -148,7 +148,7 @@ sub write {
 
 package Cassandra::SuperColumn;
 BEGIN {
-  $Cassandra::SuperColumn::VERSION = '0.0.2';
+  $Cassandra::SuperColumn::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::SuperColumn->mk_accessors( qw( name columns ) );
@@ -252,7 +252,7 @@ sub write {
 
 package Cassandra::ColumnOrSuperColumn;
 BEGIN {
-  $Cassandra::ColumnOrSuperColumn::VERSION = '0.0.2';
+  $Cassandra::ColumnOrSuperColumn::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::ColumnOrSuperColumn->mk_accessors( qw( column super_column ) );
@@ -336,7 +336,7 @@ sub write {
 
 package Cassandra::NotFoundException;
 BEGIN {
-  $Cassandra::NotFoundException::VERSION = '0.0.2';
+  $Cassandra::NotFoundException::VERSION = '0.0.3';
 }
 use base qw(Thrift::TException);
 use base qw(Class::Accessor);
@@ -386,7 +386,7 @@ sub write {
 
 package Cassandra::InvalidRequestException;
 BEGIN {
-  $Cassandra::InvalidRequestException::VERSION = '0.0.2';
+  $Cassandra::InvalidRequestException::VERSION = '0.0.3';
 }
 use base qw(Thrift::TException);
 use base qw(Class::Accessor);
@@ -454,7 +454,7 @@ sub write {
 
 package Cassandra::UnavailableException;
 BEGIN {
-  $Cassandra::UnavailableException::VERSION = '0.0.2';
+  $Cassandra::UnavailableException::VERSION = '0.0.3';
 }
 use base qw(Thrift::TException);
 use base qw(Class::Accessor);
@@ -504,7 +504,7 @@ sub write {
 
 package Cassandra::TimedOutException;
 BEGIN {
-  $Cassandra::TimedOutException::VERSION = '0.0.2';
+  $Cassandra::TimedOutException::VERSION = '0.0.3';
 }
 use base qw(Thrift::TException);
 use base qw(Class::Accessor);
@@ -554,7 +554,7 @@ sub write {
 
 package Cassandra::AuthenticationException;
 BEGIN {
-  $Cassandra::AuthenticationException::VERSION = '0.0.2';
+  $Cassandra::AuthenticationException::VERSION = '0.0.3';
 }
 use base qw(Thrift::TException);
 use base qw(Class::Accessor);
@@ -622,7 +622,7 @@ sub write {
 
 package Cassandra::AuthorizationException;
 BEGIN {
-  $Cassandra::AuthorizationException::VERSION = '0.0.2';
+  $Cassandra::AuthorizationException::VERSION = '0.0.3';
 }
 use base qw(Thrift::TException);
 use base qw(Class::Accessor);
@@ -690,7 +690,7 @@ sub write {
 
 package Cassandra::ColumnParent;
 BEGIN {
-  $Cassandra::ColumnParent::VERSION = '0.0.2';
+  $Cassandra::ColumnParent::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::ColumnParent->mk_accessors( qw( column_family super_column ) );
@@ -772,7 +772,7 @@ sub write {
 
 package Cassandra::ColumnPath;
 BEGIN {
-  $Cassandra::ColumnPath::VERSION = '0.0.2';
+  $Cassandra::ColumnPath::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::ColumnPath->mk_accessors( qw( column_family super_column column ) );
@@ -869,7 +869,7 @@ sub write {
 
 package Cassandra::SliceRange;
 BEGIN {
-  $Cassandra::SliceRange::VERSION = '0.0.2';
+  $Cassandra::SliceRange::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::SliceRange->mk_accessors( qw( start finish reversed count ) );
@@ -981,7 +981,7 @@ sub write {
 
 package Cassandra::SlicePredicate;
 BEGIN {
-  $Cassandra::SlicePredicate::VERSION = '0.0.2';
+  $Cassandra::SlicePredicate::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::SlicePredicate->mk_accessors( qw( column_names slice_range ) );
@@ -1085,7 +1085,7 @@ sub write {
 
 package Cassandra::IndexExpression;
 BEGIN {
-  $Cassandra::IndexExpression::VERSION = '0.0.2';
+  $Cassandra::IndexExpression::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::IndexExpression->mk_accessors( qw( column_name op value ) );
@@ -1182,7 +1182,7 @@ sub write {
 
 package Cassandra::IndexClause;
 BEGIN {
-  $Cassandra::IndexClause::VERSION = '0.0.2';
+  $Cassandra::IndexClause::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::IndexClause->mk_accessors( qw( expressions start_key count ) );
@@ -1301,7 +1301,7 @@ sub write {
 
 package Cassandra::KeyRange;
 BEGIN {
-  $Cassandra::KeyRange::VERSION = '0.0.2';
+  $Cassandra::KeyRange::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::KeyRange->mk_accessors( qw( start_key end_key start_token end_token count ) );
@@ -1428,7 +1428,7 @@ sub write {
 
 package Cassandra::KeySlice;
 BEGIN {
-  $Cassandra::KeySlice::VERSION = '0.0.2';
+  $Cassandra::KeySlice::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::KeySlice->mk_accessors( qw( key columns ) );
@@ -1532,7 +1532,7 @@ sub write {
 
 package Cassandra::KeyCount;
 BEGIN {
-  $Cassandra::KeyCount::VERSION = '0.0.2';
+  $Cassandra::KeyCount::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::KeyCount->mk_accessors( qw( key count ) );
@@ -1614,7 +1614,7 @@ sub write {
 
 package Cassandra::Deletion;
 BEGIN {
-  $Cassandra::Deletion::VERSION = '0.0.2';
+  $Cassandra::Deletion::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Deletion->mk_accessors( qw( timestamp super_column predicate ) );
@@ -1712,7 +1712,7 @@ sub write {
 
 package Cassandra::Mutation;
 BEGIN {
-  $Cassandra::Mutation::VERSION = '0.0.2';
+  $Cassandra::Mutation::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::Mutation->mk_accessors( qw( column_or_supercolumn deletion ) );
@@ -1796,7 +1796,7 @@ sub write {
 
 package Cassandra::TokenRange;
 BEGIN {
-  $Cassandra::TokenRange::VERSION = '0.0.2';
+  $Cassandra::TokenRange::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::TokenRange->mk_accessors( qw( start_token end_token endpoints ) );
@@ -1914,7 +1914,7 @@ sub write {
 
 package Cassandra::AuthenticationRequest;
 BEGIN {
-  $Cassandra::AuthenticationRequest::VERSION = '0.0.2';
+  $Cassandra::AuthenticationRequest::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::AuthenticationRequest->mk_accessors( qw( credentials ) );
@@ -2006,7 +2006,7 @@ sub write {
 
 package Cassandra::ColumnDef;
 BEGIN {
-  $Cassandra::ColumnDef::VERSION = '0.0.2';
+  $Cassandra::ColumnDef::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::ColumnDef->mk_accessors( qw( name validation_class index_type index_name ) );
@@ -2118,7 +2118,7 @@ sub write {
 
 package Cassandra::CfDef;
 BEGIN {
-  $Cassandra::CfDef::VERSION = '0.0.2';
+  $Cassandra::CfDef::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::CfDef->mk_accessors( qw( keyspace name column_type comparator_type subcomparator_type comment row_cache_size key_cache_size read_repair_chance column_metadata gc_grace_seconds default_validation_class id min_compaction_threshold max_compaction_threshold row_cache_save_period_in_seconds key_cache_save_period_in_seconds memtable_flush_after_mins memtable_throughput_in_mb memtable_operations_in_millions ) );
@@ -2492,7 +2492,7 @@ sub write {
 
 package Cassandra::KsDef;
 BEGIN {
-  $Cassandra::KsDef::VERSION = '0.0.2';
+  $Cassandra::KsDef::VERSION = '0.0.3';
 }
 use base qw(Class::Accessor);
 Cassandra::KsDef->mk_accessors( qw( name strategy_class strategy_options replication_factor cf_defs ) );

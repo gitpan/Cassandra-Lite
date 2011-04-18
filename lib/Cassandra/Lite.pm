@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.0.2';
+  $Cassandra::Lite::VERSION = '0.0.3';
 }
 use strict;
 use warnings;
@@ -12,18 +12,19 @@ Cassandra::Lite - Simple way to access Cassandra 0.7
 
 =head1 VERSION
 
-version 0.0.2
+version 0.0.3
 
 =head1 DESCRIPTION
 
-This module will offer a simple way to access Cassandra 0.7 (maybe later version).
+This module will offer you a simple way to access Cassandra 0.7 (maybe later version).  Some parts are not same as standard API document (especially arguments order), it's because I want to keep this module easy to use.
 
-You'll need to install Thrift and Cassandra perl modules first to use Cassandra::Lite.
+You'll need to install Thrift perl modules first to use Cassandra::Lite.
 
 =head1 SYNOPSIS
 
     use Cassandra::Lite;
 
+    # All supported options:
     my $c = Cassandra::Lite->new(
                 server_name => 'server1',       # optional, default to '127.0.0.1'
                 server_port => 9160,            # optional, default to 9160
@@ -32,11 +33,15 @@ You'll need to install Thrift and Cassandra perl modules first to use Cassandra:
                 keyspace => 'Keyspace1',
             );
 
+    # Usually we can use this in dev environment:
+    my $c = Cassandra::Lite->new(keyspace => 'Keyspace1');
+
+    # Now just define $columnFamily and $key
     my $columnFamily = 'BlogArticle';
     my $key = 'key12345';
 
-    # Insert
-    $c->insert($columnFamily, $key, {title => 'testing title', body => '...'});
+    # Insert it (timestamp is optional)
+    $c->insert($columnFamily, $key, {title => 'testing title', body => '...'}, {timestamp => time});
 
     # Get slice
     my $res1 = $c->get_slice($columnFamily, $key);
@@ -44,11 +49,11 @@ You'll need to install Thrift and Cassandra perl modules first to use Cassandra:
     my $res3 = $c->get_slice($columnFamily, $key, {range => [undef, 'sliceKeyFinish']});
     my $res4 = $c->get_slice($columnFamily, $key, {range => ['sliceKeyStart', 'sliceKeyFinish']});
 
-    # Get
+    # Get a column
     my $v = $c->get($columnFamily, $key, 'title');
 
-    # Remove
-    $c->remove($columnFamily, $key);
+    # Remove it
+    $c->remove($columnFamily, $key, {timestamp => time});       # You can specify timestamp (optional)
 
     # Change keyspace
     $c->keyspace('BlogArticleComment');
@@ -73,7 +78,6 @@ has 'username' => (is => 'rw', isa => 'Str', default => '');
 
 use 5.010;
 use Cassandra::Cassandra;
-use Cassandra::Constants;
 use Cassandra::Types;
 use Thrift;
 use Thrift::BinaryProtocol;
@@ -202,18 +206,17 @@ sub insert {
 
     my $columnFamily = shift;
     my $key = shift;
-    my $opt = shift;
+    my $opt = shift // {};
 
     # TODO: cache this
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
 
-    my $now = time;
     my $column = Cassandra::Column->new;
 
     while (my ($k, $v) = each %$opt) {
         $column->{name} = $k;
         $column->{value} = $v;
-        $column->{timestamp} = $now;
+        $column->{timestamp} = $opt->{timestamp} // time;
     }
 
     $self->client->insert($key, $columnParent, $column);
@@ -228,11 +231,20 @@ sub remove {
     my $columnFamily = shift;
     my $key = shift;
     my $column = shift;
+    my $opt = shift // {};
 
     my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily});
+    my $timestamp = $opt->{timestamp} // time;
 
-    $self->client->remove($key, $columnPath, time);
+    $self->client->remove($key, $columnPath, $timestamp);
 }
+
+=head1 SEEALSO
+
+=over
+=item L<http://wiki.apache.org/cassandra/API>
+=item L<http://wiki.apache.org/cassandra/ThriftInterface>
+=back
 
 =head1 AUTHOR
 

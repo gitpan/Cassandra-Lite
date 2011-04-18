@@ -19,7 +19,7 @@ my %module_build_args = (
     'Gea-Suan Lin <gslin@gslin.org>'
   ],
   'dist_name' => 'Cassandra-Lite',
-  'dist_version' => '0.0.2',
+  'dist_version' => '0.0.3',
   'license' => 'bsd',
   'module_name' => 'Cassandra::Lite',
   'recommends' => {},
