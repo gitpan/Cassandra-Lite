@@ -1,22 +1,22 @@
-# ABSTRACT: Simple way to access Cassandra 0.7
+# ABSTRACT: Simple way to access Cassandra 0.7/0.8
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.0.4';
+  $Cassandra::Lite::VERSION = '0.0.5';
 }
 use strict;
 use warnings;
 
 =head1 NAME
 
-Cassandra::Lite - Simple way to access Cassandra 0.7
+Cassandra::Lite - Simple way to access Cassandra 0.7/0.8
 
 =head1 VERSION
 
-version 0.0.4
+version 0.0.5
 
 =head1 DESCRIPTION
 
-This module will offer you a simple way to access Cassandra 0.7 (maybe later version).  Some parts are not same as standard API document (especially arguments order), it's because I want to keep this module easy to use.
+This module will offer you a simple way to access Cassandra 0.7/0.8 (maybe later version).  Some parts are not same as standard API document (especially arguments order), it's because I want to keep this module easy to use.
 
 You'll need to install Thrift perl modules first to use Cassandra::Lite.
 
@@ -47,7 +47,7 @@ You'll need to install Thrift perl modules first to use Cassandra::Lite.
 
     # Get slice
     my $res1 = $c->get_slice($columnFamily, $key);
-    my $res2 = $c->get_slice($columnFamily, $key, {range => ['sliceKeyStart', undef});
+    my $res2 = $c->get_slice($columnFamily, $key, {range => ['sliceKeyStart', undef]});
     my $res3 = $c->get_slice($columnFamily, $key, {range => [undef, 'sliceKeyFinish']});
     my $res4 = $c->get_slice($columnFamily, $key, {range => ['sliceKeyStart', 'sliceKeyFinish']});
 
@@ -91,6 +91,9 @@ use Thrift;
 use Thrift::BinaryProtocol;
 use Thrift::FramedTransport;
 use Thrift::Socket;
+
+=head1 FUNCTION
+=cut
 
 sub _build_client {
     my $self = shift;
@@ -185,7 +188,7 @@ sub get_count {
     # TODO: cache this
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
 
-    my $sliceRange = Cassandra::SliceRange->new;
+    my $sliceRange = Cassandra::SliceRange->new($opt);
     if (defined $opt->{range}) {
         $sliceRange->{start} = $opt->{range}->[0] // '';
         $sliceRange->{finish} = $opt->{range}->[1] // '';
@@ -215,7 +218,7 @@ sub get_slice {
     # TODO: cache this
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
 
-    my $sliceRange = Cassandra::SliceRange->new;
+    my $sliceRange = Cassandra::SliceRange->new($opt);
     if (defined $opt->{range}) {
         $sliceRange->{start} = $opt->{range}->[0] // '';
         $sliceRange->{finish} = $opt->{range}->[1] // '';
@@ -245,17 +248,15 @@ sub insert {
     # TODO: cache this
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
 
+    my $level = $self->_consistency_level_write($opt);
     my $column = Cassandra::Column->new;
 
     while (my ($k, $v) = each %$opt) {
         $column->{name} = $k;
         $column->{value} = $v;
         $column->{timestamp} = $opt->{timestamp} // time;
+        $self->client->insert($key, $columnParent, $column, $level);
     }
-
-    my $level = $self->_consistency_level_write($opt);
-
-    $self->client->insert($key, $columnParent, $column, $level);
 }
 
 =head2 remove
@@ -279,9 +280,16 @@ sub remove {
 
 =head1 SEEALSO
 
-=over
-=item L<http://wiki.apache.org/cassandra/API>
-=item L<http://wiki.apache.org/cassandra/ThriftInterface>
+=over 4
+
+=item Cassandra API
+
+L<http://wiki.apache.org/cassandra/API>
+
+=item Cassandra Thrift Interface
+
+L<http://wiki.apache.org/cassandra/ThriftInterface>
+
 =back
 
 =head1 AUTHOR

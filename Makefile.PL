@@ -2,21 +2,21 @@
 use strict;
 use warnings;
 
-BEGIN { require 5.010; }
+use 5.010;
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Simple way to access Cassandra 0.7',
+  'ABSTRACT' => 'Simple way to access Cassandra 0.7/0.8',
   'AUTHOR' => 'Gea-Suan Lin <gslin@gslin.org>',
   'BUILD_REQUIRES' => {
     'Module::Build' => '0.3601',
     'Test::More' => '0'
   },
   'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31',
+    'ExtUtils::MakeMaker' => '6.30',
     'Module::Build' => '0.3601'
   },
   'DISTNAME' => 'Cassandra-Lite',
@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
     'Thrift::Socket' => '0',
     'constant' => '0'
   },
-  'VERSION' => '0.0.4',
+  'VERSION' => '0.0.5',
   'test' => {
     'TESTS' => 't/*.t'
   }

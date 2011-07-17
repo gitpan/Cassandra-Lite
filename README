@@ -1,9 +1,9 @@
 
 
 This archive contains the distribution Cassandra-Lite,
-version 0.0.4:
+version 0.0.5:
 
-  Simple way to access Cassandra 0.7
+  Simple way to access Cassandra 0.7/0.8
 
 This software is Copyright (c) 2011 by Gea-Suan Lin.
 

@@ -14,7 +14,7 @@ use Cassandra::Types;
 
 package Cassandra::Cassandra_login_args;
 BEGIN {
-  $Cassandra::Cassandra_login_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_login_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_login_args->mk_accessors( qw( auth_request ) );
@@ -82,7 +82,7 @@ sub write {
 
 package Cassandra::Cassandra_login_result;
 BEGIN {
-  $Cassandra::Cassandra_login_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_login_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_login_result->mk_accessors( qw( ) );
@@ -166,7 +166,7 @@ sub write {
 
 package Cassandra::Cassandra_set_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_set_keyspace_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_set_keyspace_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_set_keyspace_args->mk_accessors( qw( keyspace ) );
@@ -233,7 +233,7 @@ sub write {
 
 package Cassandra::Cassandra_set_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_set_keyspace_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_set_keyspace_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_set_keyspace_result->mk_accessors( qw( ) );
@@ -301,7 +301,7 @@ sub write {
 
 package Cassandra::Cassandra_get_args;
 BEGIN {
-  $Cassandra::Cassandra_get_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_args->mk_accessors( qw( key column_path consistency_level ) );
@@ -399,7 +399,7 @@ sub write {
 
 package Cassandra::Cassandra_get_result;
 BEGIN {
-  $Cassandra::Cassandra_get_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_result->mk_accessors( qw( success ) );
@@ -531,7 +531,7 @@ sub write {
 
 package Cassandra::Cassandra_get_slice_args;
 BEGIN {
-  $Cassandra::Cassandra_get_slice_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_slice_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_slice_args->mk_accessors( qw( key column_parent predicate consistency_level ) );
@@ -645,7 +645,7 @@ sub write {
 
 package Cassandra::Cassandra_get_slice_result;
 BEGIN {
-  $Cassandra::Cassandra_get_slice_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_slice_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_slice_result->mk_accessors( qw( success ) );
@@ -696,16 +696,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size67 = 0;
+          my $_size88 = 0;
           $self->{success} = [];
-          my $_etype70 = 0;
-          $xfer += $input->readListBegin(\$_etype70, \$_size67);
-          for (my $_i71 = 0; $_i71 < $_size67; ++$_i71)
+          my $_etype91 = 0;
+          $xfer += $input->readListBegin(\$_etype91, \$_size88);
+          for (my $_i92 = 0; $_i92 < $_size88; ++$_i92)
           {
-            my $elem72 = undef;
-            $elem72 = new Cassandra::ColumnOrSuperColumn();
-            $xfer += $elem72->read($input);
-            push(@{$self->{success}},$elem72);
+            my $elem93 = undef;
+            $elem93 = new Cassandra::ColumnOrSuperColumn();
+            $xfer += $elem93->read($input);
+            push(@{$self->{success}},$elem93);
           }
           $xfer += $input->readListEnd();
         }
@@ -751,9 +751,9 @@ sub write {
     {
       $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter73 (@{$self->{success}}) 
+        foreach my $iter94 (@{$self->{success}}) 
         {
-          $xfer += ${iter73}->write($output);
+          $xfer += ${iter94}->write($output);
         }
       }
       $xfer += $output->writeListEnd();
@@ -782,7 +782,7 @@ sub write {
 
 package Cassandra::Cassandra_get_count_args;
 BEGIN {
-  $Cassandra::Cassandra_get_count_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_count_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_count_args->mk_accessors( qw( key column_parent predicate consistency_level ) );
@@ -896,7 +896,7 @@ sub write {
 
 package Cassandra::Cassandra_get_count_result;
 BEGIN {
-  $Cassandra::Cassandra_get_count_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_count_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_count_result->mk_accessors( qw( success ) );
@@ -1011,7 +1011,7 @@ sub write {
 
 package Cassandra::Cassandra_multiget_slice_args;
 BEGIN {
-  $Cassandra::Cassandra_multiget_slice_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_multiget_slice_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_multiget_slice_args->mk_accessors( qw( keys column_parent predicate consistency_level ) );
@@ -1062,15 +1062,15 @@ sub read {
     {
       /^1$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size74 = 0;
+          my $_size95 = 0;
           $self->{keys} = [];
-          my $_etype77 = 0;
-          $xfer += $input->readListBegin(\$_etype77, \$_size74);
-          for (my $_i78 = 0; $_i78 < $_size74; ++$_i78)
+          my $_etype98 = 0;
+          $xfer += $input->readListBegin(\$_etype98, \$_size95);
+          for (my $_i99 = 0; $_i99 < $_size95; ++$_i99)
           {
-            my $elem79 = undef;
-            $xfer += $input->readString(\$elem79);
-            push(@{$self->{keys}},$elem79);
+            my $elem100 = undef;
+            $xfer += $input->readString(\$elem100);
+            push(@{$self->{keys}},$elem100);
           }
           $xfer += $input->readListEnd();
         }
@@ -1115,9 +1115,9 @@ sub write {
     {
       $xfer += $output->writeListBegin(TType::STRING, scalar(@{$self->{keys}}));
       {
-        foreach my $iter80 (@{$self->{keys}}) 
+        foreach my $iter101 (@{$self->{keys}}) 
         {
-          $xfer += $output->writeString($iter80);
+          $xfer += $output->writeString($iter101);
         }
       }
       $xfer += $output->writeListEnd();
@@ -1146,7 +1146,7 @@ sub write {
 
 package Cassandra::Cassandra_multiget_slice_result;
 BEGIN {
-  $Cassandra::Cassandra_multiget_slice_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_multiget_slice_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_multiget_slice_result->mk_accessors( qw( success ) );
@@ -1197,31 +1197,31 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::MAP) {
         {
-          my $_size81 = 0;
+          my $_size102 = 0;
           $self->{success} = {};
-          my $_ktype82 = 0;
-          my $_vtype83 = 0;
-          $xfer += $input->readMapBegin(\$_ktype82, \$_vtype83, \$_size81);
-          for (my $_i85 = 0; $_i85 < $_size81; ++$_i85)
+          my $_ktype103 = 0;
+          my $_vtype104 = 0;
+          $xfer += $input->readMapBegin(\$_ktype103, \$_vtype104, \$_size102);
+          for (my $_i106 = 0; $_i106 < $_size102; ++$_i106)
           {
-            my $key86 = '';
-            my $val87 = [];
-            $xfer += $input->readString(\$key86);
+            my $key107 = '';
+            my $val108 = [];
+            $xfer += $input->readString(\$key107);
             {
-              my $_size88 = 0;
-              $val87 = [];
-              my $_etype91 = 0;
-              $xfer += $input->readListBegin(\$_etype91, \$_size88);
-              for (my $_i92 = 0; $_i92 < $_size88; ++$_i92)
+              my $_size109 = 0;
+              $val108 = [];
+              my $_etype112 = 0;
+              $xfer += $input->readListBegin(\$_etype112, \$_size109);
+              for (my $_i113 = 0; $_i113 < $_size109; ++$_i113)
               {
-                my $elem93 = undef;
-                $elem93 = new Cassandra::ColumnOrSuperColumn();
-                $xfer += $elem93->read($input);
-                push(@{$val87},$elem93);
+                my $elem114 = undef;
+                $elem114 = new Cassandra::ColumnOrSuperColumn();
+                $xfer += $elem114->read($input);
+                push(@{$val108},$elem114);
               }
               $xfer += $input->readListEnd();
             }
-            $self->{success}->{$key86} = $val87;
+            $self->{success}->{$key107} = $val108;
           }
           $xfer += $input->readMapEnd();
         }
@@ -1267,15 +1267,15 @@ sub write {
     {
       $xfer += $output->writeMapBegin(TType::STRING, TType::LIST, scalar(keys %{$self->{success}}));
       {
-        while( my ($kiter94,$viter95) = each %{$self->{success}}) 
+        while( my ($kiter115,$viter116) = each %{$self->{success}}) 
         {
-          $xfer += $output->writeString($kiter94);
+          $xfer += $output->writeString($kiter115);
           {
-            $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{${viter95}}));
+            $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{${viter116}}));
             {
-              foreach my $iter96 (@{${viter95}}) 
+              foreach my $iter117 (@{${viter116}}) 
               {
-                $xfer += ${iter96}->write($output);
+                $xfer += ${iter117}->write($output);
               }
             }
             $xfer += $output->writeListEnd();
@@ -1308,7 +1308,7 @@ sub write {
 
 package Cassandra::Cassandra_multiget_count_args;
 BEGIN {
-  $Cassandra::Cassandra_multiget_count_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_multiget_count_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_multiget_count_args->mk_accessors( qw( keys column_parent predicate consistency_level ) );
@@ -1359,15 +1359,15 @@ sub read {
     {
       /^1$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size97 = 0;
+          my $_size118 = 0;
           $self->{keys} = [];
-          my $_etype100 = 0;
-          $xfer += $input->readListBegin(\$_etype100, \$_size97);
-          for (my $_i101 = 0; $_i101 < $_size97; ++$_i101)
+          my $_etype121 = 0;
+          $xfer += $input->readListBegin(\$_etype121, \$_size118);
+          for (my $_i122 = 0; $_i122 < $_size118; ++$_i122)
           {
-            my $elem102 = undef;
-            $xfer += $input->readString(\$elem102);
-            push(@{$self->{keys}},$elem102);
+            my $elem123 = undef;
+            $xfer += $input->readString(\$elem123);
+            push(@{$self->{keys}},$elem123);
           }
           $xfer += $input->readListEnd();
         }
@@ -1412,9 +1412,9 @@ sub write {
     {
       $xfer += $output->writeListBegin(TType::STRING, scalar(@{$self->{keys}}));
       {
-        foreach my $iter103 (@{$self->{keys}}) 
+        foreach my $iter124 (@{$self->{keys}}) 
         {
-          $xfer += $output->writeString($iter103);
+          $xfer += $output->writeString($iter124);
         }
       }
       $xfer += $output->writeListEnd();
@@ -1443,7 +1443,7 @@ sub write {
 
 package Cassandra::Cassandra_multiget_count_result;
 BEGIN {
-  $Cassandra::Cassandra_multiget_count_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_multiget_count_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_multiget_count_result->mk_accessors( qw( success ) );
@@ -1494,18 +1494,18 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::MAP) {
         {
-          my $_size104 = 0;
+          my $_size125 = 0;
           $self->{success} = {};
-          my $_ktype105 = 0;
-          my $_vtype106 = 0;
-          $xfer += $input->readMapBegin(\$_ktype105, \$_vtype106, \$_size104);
-          for (my $_i108 = 0; $_i108 < $_size104; ++$_i108)
+          my $_ktype126 = 0;
+          my $_vtype127 = 0;
+          $xfer += $input->readMapBegin(\$_ktype126, \$_vtype127, \$_size125);
+          for (my $_i129 = 0; $_i129 < $_size125; ++$_i129)
           {
-            my $key109 = '';
-            my $val110 = 0;
-            $xfer += $input->readString(\$key109);
-            $xfer += $input->readI32(\$val110);
-            $self->{success}->{$key109} = $val110;
+            my $key130 = '';
+            my $val131 = 0;
+            $xfer += $input->readString(\$key130);
+            $xfer += $input->readI32(\$val131);
+            $self->{success}->{$key130} = $val131;
           }
           $xfer += $input->readMapEnd();
         }
@@ -1551,10 +1551,10 @@ sub write {
     {
       $xfer += $output->writeMapBegin(TType::STRING, TType::I32, scalar(keys %{$self->{success}}));
       {
-        while( my ($kiter111,$viter112) = each %{$self->{success}}) 
+        while( my ($kiter132,$viter133) = each %{$self->{success}}) 
         {
-          $xfer += $output->writeString($kiter111);
-          $xfer += $output->writeI32($viter112);
+          $xfer += $output->writeString($kiter132);
+          $xfer += $output->writeI32($viter133);
         }
       }
       $xfer += $output->writeMapEnd();
@@ -1583,7 +1583,7 @@ sub write {
 
 package Cassandra::Cassandra_get_range_slices_args;
 BEGIN {
-  $Cassandra::Cassandra_get_range_slices_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_range_slices_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_range_slices_args->mk_accessors( qw( column_parent predicate range consistency_level ) );
@@ -1698,7 +1698,7 @@ sub write {
 
 package Cassandra::Cassandra_get_range_slices_result;
 BEGIN {
-  $Cassandra::Cassandra_get_range_slices_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_range_slices_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_range_slices_result->mk_accessors( qw( success ) );
@@ -1749,16 +1749,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size113 = 0;
+          my $_size134 = 0;
           $self->{success} = [];
-          my $_etype116 = 0;
-          $xfer += $input->readListBegin(\$_etype116, \$_size113);
-          for (my $_i117 = 0; $_i117 < $_size113; ++$_i117)
+          my $_etype137 = 0;
+          $xfer += $input->readListBegin(\$_etype137, \$_size134);
+          for (my $_i138 = 0; $_i138 < $_size134; ++$_i138)
           {
-            my $elem118 = undef;
-            $elem118 = new Cassandra::KeySlice();
-            $xfer += $elem118->read($input);
-            push(@{$self->{success}},$elem118);
+            my $elem139 = undef;
+            $elem139 = new Cassandra::KeySlice();
+            $xfer += $elem139->read($input);
+            push(@{$self->{success}},$elem139);
           }
           $xfer += $input->readListEnd();
         }
@@ -1804,9 +1804,9 @@ sub write {
     {
       $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter119 (@{$self->{success}}) 
+        foreach my $iter140 (@{$self->{success}}) 
         {
-          $xfer += ${iter119}->write($output);
+          $xfer += ${iter140}->write($output);
         }
       }
       $xfer += $output->writeListEnd();
@@ -1835,7 +1835,7 @@ sub write {
 
 package Cassandra::Cassandra_get_indexed_slices_args;
 BEGIN {
-  $Cassandra::Cassandra_get_indexed_slices_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_indexed_slices_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_indexed_slices_args->mk_accessors( qw( column_parent index_clause column_predicate consistency_level ) );
@@ -1950,7 +1950,7 @@ sub write {
 
 package Cassandra::Cassandra_get_indexed_slices_result;
 BEGIN {
-  $Cassandra::Cassandra_get_indexed_slices_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_get_indexed_slices_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_get_indexed_slices_result->mk_accessors( qw( success ) );
@@ -2001,16 +2001,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size120 = 0;
+          my $_size141 = 0;
           $self->{success} = [];
-          my $_etype123 = 0;
-          $xfer += $input->readListBegin(\$_etype123, \$_size120);
-          for (my $_i124 = 0; $_i124 < $_size120; ++$_i124)
+          my $_etype144 = 0;
+          $xfer += $input->readListBegin(\$_etype144, \$_size141);
+          for (my $_i145 = 0; $_i145 < $_size141; ++$_i145)
           {
-            my $elem125 = undef;
-            $elem125 = new Cassandra::KeySlice();
-            $xfer += $elem125->read($input);
-            push(@{$self->{success}},$elem125);
+            my $elem146 = undef;
+            $elem146 = new Cassandra::KeySlice();
+            $xfer += $elem146->read($input);
+            push(@{$self->{success}},$elem146);
           }
           $xfer += $input->readListEnd();
         }
@@ -2056,9 +2056,9 @@ sub write {
     {
       $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter126 (@{$self->{success}}) 
+        foreach my $iter147 (@{$self->{success}}) 
         {
-          $xfer += ${iter126}->write($output);
+          $xfer += ${iter147}->write($output);
         }
       }
       $xfer += $output->writeListEnd();
@@ -2087,7 +2087,7 @@ sub write {
 
 package Cassandra::Cassandra_insert_args;
 BEGIN {
-  $Cassandra::Cassandra_insert_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_insert_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_insert_args->mk_accessors( qw( key column_parent column consistency_level ) );
@@ -2201,7 +2201,7 @@ sub write {
 
 package Cassandra::Cassandra_insert_result;
 BEGIN {
-  $Cassandra::Cassandra_insert_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_insert_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_insert_result->mk_accessors( qw( ) );
@@ -2299,9 +2299,223 @@ sub write {
   return $xfer;
 }
 
+package Cassandra::Cassandra_add_args;
+BEGIN {
+  $Cassandra::Cassandra_add_args::VERSION = '0.0.5';
+}
+use base qw(Class::Accessor);
+Cassandra::Cassandra_add_args->mk_accessors( qw( key column_parent column consistency_level ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{key} = undef;
+  $self->{column_parent} = undef;
+  $self->{column} = undef;
+  $self->{consistency_level} = 1;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{key}) {
+      $self->{key} = $vals->{key};
+    }
+    if (defined $vals->{column_parent}) {
+      $self->{column_parent} = $vals->{column_parent};
+    }
+    if (defined $vals->{column}) {
+      $self->{column} = $vals->{column};
+    }
+    if (defined $vals->{consistency_level}) {
+      $self->{consistency_level} = $vals->{consistency_level};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'Cassandra_add_args';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{key});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{column_parent} = new Cassandra::ColumnParent();
+        $xfer += $self->{column_parent}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{column} = new Cassandra::CounterColumn();
+        $xfer += $self->{column}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^4$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{consistency_level});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('Cassandra_add_args');
+  if (defined $self->{key}) {
+    $xfer += $output->writeFieldBegin('key', TType::STRING, 1);
+    $xfer += $output->writeString($self->{key});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{column_parent}) {
+    $xfer += $output->writeFieldBegin('column_parent', TType::STRUCT, 2);
+    $xfer += $self->{column_parent}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{column}) {
+    $xfer += $output->writeFieldBegin('column', TType::STRUCT, 3);
+    $xfer += $self->{column}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{consistency_level}) {
+    $xfer += $output->writeFieldBegin('consistency_level', TType::I32, 4);
+    $xfer += $output->writeI32($self->{consistency_level});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Cassandra::Cassandra_add_result;
+BEGIN {
+  $Cassandra::Cassandra_add_result::VERSION = '0.0.5';
+}
+use base qw(Class::Accessor);
+Cassandra::Cassandra_add_result->mk_accessors( qw( ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{ire} = undef;
+  $self->{ue} = undef;
+  $self->{te} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ire}) {
+      $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{ue}) {
+      $self->{ue} = $vals->{ue};
+    }
+    if (defined $vals->{te}) {
+      $self->{te} = $vals->{te};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'Cassandra_add_result';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ire} = new Cassandra::InvalidRequestException();
+        $xfer += $self->{ire}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ue} = new Cassandra::UnavailableException();
+        $xfer += $self->{ue}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{te} = new Cassandra::TimedOutException();
+        $xfer += $self->{te}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('Cassandra_add_result');
+  if (defined $self->{ire}) {
+    $xfer += $output->writeFieldBegin('ire', TType::STRUCT, 1);
+    $xfer += $self->{ire}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ue}) {
+    $xfer += $output->writeFieldBegin('ue', TType::STRUCT, 2);
+    $xfer += $self->{ue}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{te}) {
+    $xfer += $output->writeFieldBegin('te', TType::STRUCT, 3);
+    $xfer += $self->{te}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package Cassandra::Cassandra_remove_args;
 BEGIN {
-  $Cassandra::Cassandra_remove_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_remove_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_remove_args->mk_accessors( qw( key column_path timestamp consistency_level ) );
@@ -2414,7 +2628,7 @@ sub write {
 
 package Cassandra::Cassandra_remove_result;
 BEGIN {
-  $Cassandra::Cassandra_remove_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_remove_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_remove_result->mk_accessors( qw( ) );
@@ -2512,9 +2726,207 @@ sub write {
   return $xfer;
 }
 
+package Cassandra::Cassandra_remove_counter_args;
+BEGIN {
+  $Cassandra::Cassandra_remove_counter_args::VERSION = '0.0.5';
+}
+use base qw(Class::Accessor);
+Cassandra::Cassandra_remove_counter_args->mk_accessors( qw( key path consistency_level ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{key} = undef;
+  $self->{path} = undef;
+  $self->{consistency_level} = 1;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{key}) {
+      $self->{key} = $vals->{key};
+    }
+    if (defined $vals->{path}) {
+      $self->{path} = $vals->{path};
+    }
+    if (defined $vals->{consistency_level}) {
+      $self->{consistency_level} = $vals->{consistency_level};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'Cassandra_remove_counter_args';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{key});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{path} = new Cassandra::ColumnPath();
+        $xfer += $self->{path}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{consistency_level});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('Cassandra_remove_counter_args');
+  if (defined $self->{key}) {
+    $xfer += $output->writeFieldBegin('key', TType::STRING, 1);
+    $xfer += $output->writeString($self->{key});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{path}) {
+    $xfer += $output->writeFieldBegin('path', TType::STRUCT, 2);
+    $xfer += $self->{path}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{consistency_level}) {
+    $xfer += $output->writeFieldBegin('consistency_level', TType::I32, 3);
+    $xfer += $output->writeI32($self->{consistency_level});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Cassandra::Cassandra_remove_counter_result;
+BEGIN {
+  $Cassandra::Cassandra_remove_counter_result::VERSION = '0.0.5';
+}
+use base qw(Class::Accessor);
+Cassandra::Cassandra_remove_counter_result->mk_accessors( qw( ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{ire} = undef;
+  $self->{ue} = undef;
+  $self->{te} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ire}) {
+      $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{ue}) {
+      $self->{ue} = $vals->{ue};
+    }
+    if (defined $vals->{te}) {
+      $self->{te} = $vals->{te};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'Cassandra_remove_counter_result';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ire} = new Cassandra::InvalidRequestException();
+        $xfer += $self->{ire}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ue} = new Cassandra::UnavailableException();
+        $xfer += $self->{ue}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{te} = new Cassandra::TimedOutException();
+        $xfer += $self->{te}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('Cassandra_remove_counter_result');
+  if (defined $self->{ire}) {
+    $xfer += $output->writeFieldBegin('ire', TType::STRUCT, 1);
+    $xfer += $self->{ire}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ue}) {
+    $xfer += $output->writeFieldBegin('ue', TType::STRUCT, 2);
+    $xfer += $self->{ue}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{te}) {
+    $xfer += $output->writeFieldBegin('te', TType::STRUCT, 3);
+    $xfer += $self->{te}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package Cassandra::Cassandra_batch_mutate_args;
 BEGIN {
-  $Cassandra::Cassandra_batch_mutate_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_batch_mutate_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_batch_mutate_args->mk_accessors( qw( mutation_map consistency_level ) );
@@ -2557,46 +2969,46 @@ sub read {
     {
       /^1$/ && do{      if ($ftype == TType::MAP) {
         {
-          my $_size127 = 0;
+          my $_size148 = 0;
           $self->{mutation_map} = {};
-          my $_ktype128 = 0;
-          my $_vtype129 = 0;
-          $xfer += $input->readMapBegin(\$_ktype128, \$_vtype129, \$_size127);
-          for (my $_i131 = 0; $_i131 < $_size127; ++$_i131)
+          my $_ktype149 = 0;
+          my $_vtype150 = 0;
+          $xfer += $input->readMapBegin(\$_ktype149, \$_vtype150, \$_size148);
+          for (my $_i152 = 0; $_i152 < $_size148; ++$_i152)
           {
-            my $key132 = '';
-            my $val133 = [];
-            $xfer += $input->readString(\$key132);
+            my $key153 = '';
+            my $val154 = [];
+            $xfer += $input->readString(\$key153);
             {
-              my $_size134 = 0;
-              $val133 = {};
-              my $_ktype135 = 0;
-              my $_vtype136 = 0;
-              $xfer += $input->readMapBegin(\$_ktype135, \$_vtype136, \$_size134);
-              for (my $_i138 = 0; $_i138 < $_size134; ++$_i138)
+              my $_size155 = 0;
+              $val154 = {};
+              my $_ktype156 = 0;
+              my $_vtype157 = 0;
+              $xfer += $input->readMapBegin(\$_ktype156, \$_vtype157, \$_size155);
+              for (my $_i159 = 0; $_i159 < $_size155; ++$_i159)
               {
-                my $key139 = '';
-                my $val140 = [];
-                $xfer += $input->readString(\$key139);
+                my $key160 = '';
+                my $val161 = [];
+                $xfer += $input->readString(\$key160);
                 {
-                  my $_size141 = 0;
-                  $val140 = [];
-                  my $_etype144 = 0;
-                  $xfer += $input->readListBegin(\$_etype144, \$_size141);
-                  for (my $_i145 = 0; $_i145 < $_size141; ++$_i145)
+                  my $_size162 = 0;
+                  $val161 = [];
+                  my $_etype165 = 0;
+                  $xfer += $input->readListBegin(\$_etype165, \$_size162);
+                  for (my $_i166 = 0; $_i166 < $_size162; ++$_i166)
                   {
-                    my $elem146 = undef;
-                    $elem146 = new Cassandra::Mutation();
-                    $xfer += $elem146->read($input);
-                    push(@{$val140},$elem146);
+                    my $elem167 = undef;
+                    $elem167 = new Cassandra::Mutation();
+                    $xfer += $elem167->read($input);
+                    push(@{$val161},$elem167);
                   }
                   $xfer += $input->readListEnd();
                 }
-                $val133->{$key139} = $val140;
+                $val154->{$key160} = $val161;
               }
               $xfer += $input->readMapEnd();
             }
-            $self->{mutation_map}->{$key132} = $val133;
+            $self->{mutation_map}->{$key153} = $val154;
           }
           $xfer += $input->readMapEnd();
         }
@@ -2627,21 +3039,21 @@ sub write {
     {
       $xfer += $output->writeMapBegin(TType::STRING, TType::MAP, scalar(keys %{$self->{mutation_map}}));
       {
-        while( my ($kiter147,$viter148) = each %{$self->{mutation_map}}) 
+        while( my ($kiter168,$viter169) = each %{$self->{mutation_map}}) 
         {
-          $xfer += $output->writeString($kiter147);
+          $xfer += $output->writeString($kiter168);
           {
-            $xfer += $output->writeMapBegin(TType::STRING, TType::LIST, scalar(keys %{${viter148}}));
+            $xfer += $output->writeMapBegin(TType::STRING, TType::LIST, scalar(keys %{${viter169}}));
             {
-              while( my ($kiter149,$viter150) = each %{${viter148}}) 
+              while( my ($kiter170,$viter171) = each %{${viter169}}) 
               {
-                $xfer += $output->writeString($kiter149);
+                $xfer += $output->writeString($kiter170);
                 {
-                  $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{${viter150}}));
+                  $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{${viter171}}));
                   {
-                    foreach my $iter151 (@{${viter150}}) 
+                    foreach my $iter172 (@{${viter171}}) 
                     {
-                      $xfer += ${iter151}->write($output);
+                      $xfer += ${iter172}->write($output);
                     }
                   }
                   $xfer += $output->writeListEnd();
@@ -2668,7 +3080,7 @@ sub write {
 
 package Cassandra::Cassandra_batch_mutate_result;
 BEGIN {
-  $Cassandra::Cassandra_batch_mutate_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_batch_mutate_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_batch_mutate_result->mk_accessors( qw( ) );
@@ -2768,7 +3180,7 @@ sub write {
 
 package Cassandra::Cassandra_truncate_args;
 BEGIN {
-  $Cassandra::Cassandra_truncate_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_truncate_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_truncate_args->mk_accessors( qw( cfname ) );
@@ -2835,7 +3247,7 @@ sub write {
 
 package Cassandra::Cassandra_truncate_result;
 BEGIN {
-  $Cassandra::Cassandra_truncate_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_truncate_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_truncate_result->mk_accessors( qw( ) );
@@ -2919,7 +3331,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_schema_versions_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_schema_versions_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_schema_versions_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 
@@ -2968,7 +3380,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_schema_versions_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_schema_versions_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_schema_versions_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_schema_versions_result->mk_accessors( qw( success ) );
@@ -3011,30 +3423,30 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::MAP) {
         {
-          my $_size152 = 0;
+          my $_size173 = 0;
           $self->{success} = {};
-          my $_ktype153 = 0;
-          my $_vtype154 = 0;
-          $xfer += $input->readMapBegin(\$_ktype153, \$_vtype154, \$_size152);
-          for (my $_i156 = 0; $_i156 < $_size152; ++$_i156)
+          my $_ktype174 = 0;
+          my $_vtype175 = 0;
+          $xfer += $input->readMapBegin(\$_ktype174, \$_vtype175, \$_size173);
+          for (my $_i177 = 0; $_i177 < $_size173; ++$_i177)
           {
-            my $key157 = '';
-            my $val158 = [];
-            $xfer += $input->readString(\$key157);
+            my $key178 = '';
+            my $val179 = [];
+            $xfer += $input->readString(\$key178);
             {
-              my $_size159 = 0;
-              $val158 = [];
-              my $_etype162 = 0;
-              $xfer += $input->readListBegin(\$_etype162, \$_size159);
-              for (my $_i163 = 0; $_i163 < $_size159; ++$_i163)
+              my $_size180 = 0;
+              $val179 = [];
+              my $_etype183 = 0;
+              $xfer += $input->readListBegin(\$_etype183, \$_size180);
+              for (my $_i184 = 0; $_i184 < $_size180; ++$_i184)
               {
-                my $elem164 = undef;
-                $xfer += $input->readString(\$elem164);
-                push(@{$val158},$elem164);
+                my $elem185 = undef;
+                $xfer += $input->readString(\$elem185);
+                push(@{$val179},$elem185);
               }
               $xfer += $input->readListEnd();
             }
-            $self->{success}->{$key157} = $val158;
+            $self->{success}->{$key178} = $val179;
           }
           $xfer += $input->readMapEnd();
         }
@@ -3066,15 +3478,15 @@ sub write {
     {
       $xfer += $output->writeMapBegin(TType::STRING, TType::LIST, scalar(keys %{$self->{success}}));
       {
-        while( my ($kiter165,$viter166) = each %{$self->{success}}) 
+        while( my ($kiter186,$viter187) = each %{$self->{success}}) 
         {
-          $xfer += $output->writeString($kiter165);
+          $xfer += $output->writeString($kiter186);
           {
-            $xfer += $output->writeListBegin(TType::STRING, scalar(@{${viter166}}));
+            $xfer += $output->writeListBegin(TType::STRING, scalar(@{${viter187}}));
             {
-              foreach my $iter167 (@{${viter166}}) 
+              foreach my $iter188 (@{${viter187}}) 
               {
-                $xfer += $output->writeString($iter167);
+                $xfer += $output->writeString($iter188);
               }
             }
             $xfer += $output->writeListEnd();
@@ -3097,7 +3509,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_keyspaces_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_keyspaces_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_keyspaces_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 
@@ -3146,7 +3558,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_keyspaces_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_keyspaces_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_keyspaces_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_keyspaces_result->mk_accessors( qw( success ) );
@@ -3189,16 +3601,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size168 = 0;
+          my $_size189 = 0;
           $self->{success} = [];
-          my $_etype171 = 0;
-          $xfer += $input->readListBegin(\$_etype171, \$_size168);
-          for (my $_i172 = 0; $_i172 < $_size168; ++$_i172)
+          my $_etype192 = 0;
+          $xfer += $input->readListBegin(\$_etype192, \$_size189);
+          for (my $_i193 = 0; $_i193 < $_size189; ++$_i193)
           {
-            my $elem173 = undef;
-            $elem173 = new Cassandra::KsDef();
-            $xfer += $elem173->read($input);
-            push(@{$self->{success}},$elem173);
+            my $elem194 = undef;
+            $elem194 = new Cassandra::KsDef();
+            $xfer += $elem194->read($input);
+            push(@{$self->{success}},$elem194);
           }
           $xfer += $input->readListEnd();
         }
@@ -3230,9 +3642,9 @@ sub write {
     {
       $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter174 (@{$self->{success}}) 
+        foreach my $iter195 (@{$self->{success}}) 
         {
-          $xfer += ${iter174}->write($output);
+          $xfer += ${iter195}->write($output);
         }
       }
       $xfer += $output->writeListEnd();
@@ -3251,7 +3663,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_cluster_name_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_cluster_name_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_cluster_name_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 
@@ -3300,7 +3712,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_cluster_name_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_cluster_name_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_cluster_name_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_cluster_name_result->mk_accessors( qw( success ) );
@@ -3367,7 +3779,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_version_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_version_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_version_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 
@@ -3416,7 +3828,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_version_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_version_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_version_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_version_result->mk_accessors( qw( success ) );
@@ -3483,7 +3895,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_ring_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_ring_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_ring_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_ring_args->mk_accessors( qw( keyspace ) );
@@ -3550,7 +3962,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_ring_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_ring_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_ring_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_ring_result->mk_accessors( qw( success ) );
@@ -3593,16 +4005,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size175 = 0;
+          my $_size196 = 0;
           $self->{success} = [];
-          my $_etype178 = 0;
-          $xfer += $input->readListBegin(\$_etype178, \$_size175);
-          for (my $_i179 = 0; $_i179 < $_size175; ++$_i179)
+          my $_etype199 = 0;
+          $xfer += $input->readListBegin(\$_etype199, \$_size196);
+          for (my $_i200 = 0; $_i200 < $_size196; ++$_i200)
           {
-            my $elem180 = undef;
-            $elem180 = new Cassandra::TokenRange();
-            $xfer += $elem180->read($input);
-            push(@{$self->{success}},$elem180);
+            my $elem201 = undef;
+            $elem201 = new Cassandra::TokenRange();
+            $xfer += $elem201->read($input);
+            push(@{$self->{success}},$elem201);
           }
           $xfer += $input->readListEnd();
         }
@@ -3634,9 +4046,9 @@ sub write {
     {
       $xfer += $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter181 (@{$self->{success}}) 
+        foreach my $iter202 (@{$self->{success}}) 
         {
-          $xfer += ${iter181}->write($output);
+          $xfer += ${iter202}->write($output);
         }
       }
       $xfer += $output->writeListEnd();
@@ -3655,7 +4067,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_partitioner_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_partitioner_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_partitioner_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 
@@ -3704,7 +4116,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_partitioner_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_partitioner_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_partitioner_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_partitioner_result->mk_accessors( qw( success ) );
@@ -3771,7 +4183,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_snitch_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_snitch_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_snitch_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 
@@ -3820,7 +4232,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_snitch_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_snitch_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_snitch_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_snitch_result->mk_accessors( qw( success ) );
@@ -3887,7 +4299,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_keyspace_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_keyspace_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_keyspace_args->mk_accessors( qw( keyspace ) );
@@ -3954,7 +4366,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_keyspace_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_keyspace_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_keyspace_result->mk_accessors( qw( success ) );
@@ -4054,7 +4466,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_splits_args;
 BEGIN {
-  $Cassandra::Cassandra_describe_splits_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_splits_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_splits_args->mk_accessors( qw( cfName start_token end_token keys_per_split ) );
@@ -4166,7 +4578,7 @@ sub write {
 
 package Cassandra::Cassandra_describe_splits_result;
 BEGIN {
-  $Cassandra::Cassandra_describe_splits_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_describe_splits_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_describe_splits_result->mk_accessors( qw( success ) );
@@ -4176,9 +4588,13 @@ sub new {
   my $self      = {};
   my $vals      = shift || {};
   $self->{success} = undef;
+  $self->{ire} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{success}) {
       $self->{success} = $vals->{success};
+    }
+    if (defined $vals->{ire}) {
+      $self->{ire} = $vals->{ire};
     }
   }
   return bless ($self, $classname);
@@ -4205,18 +4621,25 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size182 = 0;
+          my $_size203 = 0;
           $self->{success} = [];
-          my $_etype185 = 0;
-          $xfer += $input->readListBegin(\$_etype185, \$_size182);
-          for (my $_i186 = 0; $_i186 < $_size182; ++$_i186)
+          my $_etype206 = 0;
+          $xfer += $input->readListBegin(\$_etype206, \$_size203);
+          for (my $_i207 = 0; $_i207 < $_size203; ++$_i207)
           {
-            my $elem187 = undef;
-            $xfer += $input->readString(\$elem187);
-            push(@{$self->{success}},$elem187);
+            my $elem208 = undef;
+            $xfer += $input->readString(\$elem208);
+            push(@{$self->{success}},$elem208);
           }
           $xfer += $input->readListEnd();
         }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ire} = new Cassandra::InvalidRequestException();
+        $xfer += $self->{ire}->read($input);
       } else {
         $xfer += $input->skip($ftype);
       }
@@ -4238,13 +4661,18 @@ sub write {
     {
       $xfer += $output->writeListBegin(TType::STRING, scalar(@{$self->{success}}));
       {
-        foreach my $iter188 (@{$self->{success}}) 
+        foreach my $iter209 (@{$self->{success}}) 
         {
-          $xfer += $output->writeString($iter188);
+          $xfer += $output->writeString($iter209);
         }
       }
       $xfer += $output->writeListEnd();
     }
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ire}) {
+    $xfer += $output->writeFieldBegin('ire', TType::STRUCT, 1);
+    $xfer += $self->{ire}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -4254,7 +4682,7 @@ sub write {
 
 package Cassandra::Cassandra_system_add_column_family_args;
 BEGIN {
-  $Cassandra::Cassandra_system_add_column_family_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_add_column_family_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_add_column_family_args->mk_accessors( qw( cf_def ) );
@@ -4322,7 +4750,7 @@ sub write {
 
 package Cassandra::Cassandra_system_add_column_family_result;
 BEGIN {
-  $Cassandra::Cassandra_system_add_column_family_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_add_column_family_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_add_column_family_result->mk_accessors( qw( success ) );
@@ -4333,12 +4761,16 @@ sub new {
   my $vals      = shift || {};
   $self->{success} = undef;
   $self->{ire} = undef;
+  $self->{sde} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{success}) {
       $self->{success} = $vals->{success};
     }
     if (defined $vals->{ire}) {
       $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{sde}) {
+      $self->{sde} = $vals->{sde};
     }
   }
   return bless ($self, $classname);
@@ -4376,6 +4808,13 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{sde} = new Cassandra::SchemaDisagreementException();
+        $xfer += $self->{sde}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -4398,6 +4837,11 @@ sub write {
     $xfer += $self->{ire}->write($output);
     $xfer += $output->writeFieldEnd();
   }
+  if (defined $self->{sde}) {
+    $xfer += $output->writeFieldBegin('sde', TType::STRUCT, 2);
+    $xfer += $self->{sde}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -4405,7 +4849,7 @@ sub write {
 
 package Cassandra::Cassandra_system_drop_column_family_args;
 BEGIN {
-  $Cassandra::Cassandra_system_drop_column_family_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_drop_column_family_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_drop_column_family_args->mk_accessors( qw( column_family ) );
@@ -4472,7 +4916,7 @@ sub write {
 
 package Cassandra::Cassandra_system_drop_column_family_result;
 BEGIN {
-  $Cassandra::Cassandra_system_drop_column_family_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_drop_column_family_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_drop_column_family_result->mk_accessors( qw( success ) );
@@ -4483,12 +4927,16 @@ sub new {
   my $vals      = shift || {};
   $self->{success} = undef;
   $self->{ire} = undef;
+  $self->{sde} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{success}) {
       $self->{success} = $vals->{success};
     }
     if (defined $vals->{ire}) {
       $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{sde}) {
+      $self->{sde} = $vals->{sde};
     }
   }
   return bless ($self, $classname);
@@ -4526,6 +4974,13 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{sde} = new Cassandra::SchemaDisagreementException();
+        $xfer += $self->{sde}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -4548,6 +5003,11 @@ sub write {
     $xfer += $self->{ire}->write($output);
     $xfer += $output->writeFieldEnd();
   }
+  if (defined $self->{sde}) {
+    $xfer += $output->writeFieldBegin('sde', TType::STRUCT, 2);
+    $xfer += $self->{sde}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -4555,7 +5015,7 @@ sub write {
 
 package Cassandra::Cassandra_system_add_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_system_add_keyspace_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_add_keyspace_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_add_keyspace_args->mk_accessors( qw( ks_def ) );
@@ -4623,7 +5083,7 @@ sub write {
 
 package Cassandra::Cassandra_system_add_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_system_add_keyspace_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_add_keyspace_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_add_keyspace_result->mk_accessors( qw( success ) );
@@ -4634,12 +5094,16 @@ sub new {
   my $vals      = shift || {};
   $self->{success} = undef;
   $self->{ire} = undef;
+  $self->{sde} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{success}) {
       $self->{success} = $vals->{success};
     }
     if (defined $vals->{ire}) {
       $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{sde}) {
+      $self->{sde} = $vals->{sde};
     }
   }
   return bless ($self, $classname);
@@ -4677,6 +5141,13 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{sde} = new Cassandra::SchemaDisagreementException();
+        $xfer += $self->{sde}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -4699,6 +5170,11 @@ sub write {
     $xfer += $self->{ire}->write($output);
     $xfer += $output->writeFieldEnd();
   }
+  if (defined $self->{sde}) {
+    $xfer += $output->writeFieldBegin('sde', TType::STRUCT, 2);
+    $xfer += $self->{sde}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -4706,7 +5182,7 @@ sub write {
 
 package Cassandra::Cassandra_system_drop_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_system_drop_keyspace_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_drop_keyspace_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_drop_keyspace_args->mk_accessors( qw( keyspace ) );
@@ -4773,7 +5249,7 @@ sub write {
 
 package Cassandra::Cassandra_system_drop_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_system_drop_keyspace_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_drop_keyspace_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_drop_keyspace_result->mk_accessors( qw( success ) );
@@ -4784,12 +5260,16 @@ sub new {
   my $vals      = shift || {};
   $self->{success} = undef;
   $self->{ire} = undef;
+  $self->{sde} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{success}) {
       $self->{success} = $vals->{success};
     }
     if (defined $vals->{ire}) {
       $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{sde}) {
+      $self->{sde} = $vals->{sde};
     }
   }
   return bless ($self, $classname);
@@ -4827,6 +5307,13 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{sde} = new Cassandra::SchemaDisagreementException();
+        $xfer += $self->{sde}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -4849,6 +5336,11 @@ sub write {
     $xfer += $self->{ire}->write($output);
     $xfer += $output->writeFieldEnd();
   }
+  if (defined $self->{sde}) {
+    $xfer += $output->writeFieldBegin('sde', TType::STRUCT, 2);
+    $xfer += $self->{sde}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -4856,7 +5348,7 @@ sub write {
 
 package Cassandra::Cassandra_system_update_keyspace_args;
 BEGIN {
-  $Cassandra::Cassandra_system_update_keyspace_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_update_keyspace_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_update_keyspace_args->mk_accessors( qw( ks_def ) );
@@ -4924,7 +5416,7 @@ sub write {
 
 package Cassandra::Cassandra_system_update_keyspace_result;
 BEGIN {
-  $Cassandra::Cassandra_system_update_keyspace_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_update_keyspace_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_update_keyspace_result->mk_accessors( qw( success ) );
@@ -4935,12 +5427,16 @@ sub new {
   my $vals      = shift || {};
   $self->{success} = undef;
   $self->{ire} = undef;
+  $self->{sde} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{success}) {
       $self->{success} = $vals->{success};
     }
     if (defined $vals->{ire}) {
       $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{sde}) {
+      $self->{sde} = $vals->{sde};
     }
   }
   return bless ($self, $classname);
@@ -4978,6 +5474,13 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{sde} = new Cassandra::SchemaDisagreementException();
+        $xfer += $self->{sde}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -5000,6 +5503,11 @@ sub write {
     $xfer += $self->{ire}->write($output);
     $xfer += $output->writeFieldEnd();
   }
+  if (defined $self->{sde}) {
+    $xfer += $output->writeFieldBegin('sde', TType::STRUCT, 2);
+    $xfer += $self->{sde}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -5007,7 +5515,7 @@ sub write {
 
 package Cassandra::Cassandra_system_update_column_family_args;
 BEGIN {
-  $Cassandra::Cassandra_system_update_column_family_args::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_update_column_family_args::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_update_column_family_args->mk_accessors( qw( cf_def ) );
@@ -5075,7 +5583,7 @@ sub write {
 
 package Cassandra::Cassandra_system_update_column_family_result;
 BEGIN {
-  $Cassandra::Cassandra_system_update_column_family_result::VERSION = '0.0.4';
+  $Cassandra::Cassandra_system_update_column_family_result::VERSION = '0.0.5';
 }
 use base qw(Class::Accessor);
 Cassandra::Cassandra_system_update_column_family_result->mk_accessors( qw( success ) );
@@ -5086,12 +5594,16 @@ sub new {
   my $vals      = shift || {};
   $self->{success} = undef;
   $self->{ire} = undef;
+  $self->{sde} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{success}) {
       $self->{success} = $vals->{success};
     }
     if (defined $vals->{ire}) {
       $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{sde}) {
+      $self->{sde} = $vals->{sde};
     }
   }
   return bless ($self, $classname);
@@ -5129,6 +5641,13 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{sde} = new Cassandra::SchemaDisagreementException();
+        $xfer += $self->{sde}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -5151,6 +5670,225 @@ sub write {
     $xfer += $self->{ire}->write($output);
     $xfer += $output->writeFieldEnd();
   }
+  if (defined $self->{sde}) {
+    $xfer += $output->writeFieldBegin('sde', TType::STRUCT, 2);
+    $xfer += $self->{sde}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Cassandra::Cassandra_execute_cql_query_args;
+BEGIN {
+  $Cassandra::Cassandra_execute_cql_query_args::VERSION = '0.0.5';
+}
+use base qw(Class::Accessor);
+Cassandra::Cassandra_execute_cql_query_args->mk_accessors( qw( query compression ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{query} = undef;
+  $self->{compression} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{query}) {
+      $self->{query} = $vals->{query};
+    }
+    if (defined $vals->{compression}) {
+      $self->{compression} = $vals->{compression};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'Cassandra_execute_cql_query_args';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{query});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{compression});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('Cassandra_execute_cql_query_args');
+  if (defined $self->{query}) {
+    $xfer += $output->writeFieldBegin('query', TType::STRING, 1);
+    $xfer += $output->writeString($self->{query});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{compression}) {
+    $xfer += $output->writeFieldBegin('compression', TType::I32, 2);
+    $xfer += $output->writeI32($self->{compression});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Cassandra::Cassandra_execute_cql_query_result;
+BEGIN {
+  $Cassandra::Cassandra_execute_cql_query_result::VERSION = '0.0.5';
+}
+use base qw(Class::Accessor);
+Cassandra::Cassandra_execute_cql_query_result->mk_accessors( qw( success ) );
+
+sub new {
+  my $classname = shift;
+  my $self      = {};
+  my $vals      = shift || {};
+  $self->{success} = undef;
+  $self->{ire} = undef;
+  $self->{ue} = undef;
+  $self->{te} = undef;
+  $self->{sde} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{success}) {
+      $self->{success} = $vals->{success};
+    }
+    if (defined $vals->{ire}) {
+      $self->{ire} = $vals->{ire};
+    }
+    if (defined $vals->{ue}) {
+      $self->{ue} = $vals->{ue};
+    }
+    if (defined $vals->{te}) {
+      $self->{te} = $vals->{te};
+    }
+    if (defined $vals->{sde}) {
+      $self->{sde} = $vals->{sde};
+    }
+  }
+  return bless ($self, $classname);
+}
+
+sub getName {
+  return 'Cassandra_execute_cql_query_result';
+}
+
+sub read {
+  my ($self, $input) = @_;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^0$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{success} = new Cassandra::CqlResult();
+        $xfer += $self->{success}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ire} = new Cassandra::InvalidRequestException();
+        $xfer += $self->{ire}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ue} = new Cassandra::UnavailableException();
+        $xfer += $self->{ue}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{te} = new Cassandra::TimedOutException();
+        $xfer += $self->{te}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^4$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{sde} = new Cassandra::SchemaDisagreementException();
+        $xfer += $self->{sde}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my ($self, $output) = @_;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('Cassandra_execute_cql_query_result');
+  if (defined $self->{success}) {
+    $xfer += $output->writeFieldBegin('success', TType::STRUCT, 0);
+    $xfer += $self->{success}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ire}) {
+    $xfer += $output->writeFieldBegin('ire', TType::STRUCT, 1);
+    $xfer += $self->{ire}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ue}) {
+    $xfer += $output->writeFieldBegin('ue', TType::STRUCT, 2);
+    $xfer += $self->{ue}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{te}) {
+    $xfer += $output->writeFieldBegin('te', TType::STRUCT, 3);
+    $xfer += $self->{te}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{sde}) {
+    $xfer += $output->writeFieldBegin('sde', TType::STRUCT, 4);
+    $xfer += $self->{sde}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -5158,7 +5896,7 @@ sub write {
 
 package Cassandra::CassandraIf;
 BEGIN {
-  $Cassandra::CassandraIf::VERSION = '0.0.4';
+  $Cassandra::CassandraIf::VERSION = '0.0.5';
 }
 
 use strict;
@@ -5257,11 +5995,30 @@ sub insert{
   die 'implement interface';
 }
 
+sub add{
+  my $self = shift;
+  my $key = shift;
+  my $column_parent = shift;
+  my $column = shift;
+  my $consistency_level = shift;
+
+  die 'implement interface';
+}
+
 sub remove{
   my $self = shift;
   my $key = shift;
   my $column_path = shift;
   my $timestamp = shift;
+  my $consistency_level = shift;
+
+  die 'implement interface';
+}
+
+sub remove_counter{
+  my $self = shift;
+  my $key = shift;
+  my $path = shift;
   my $consistency_level = shift;
 
   die 'implement interface';
@@ -5384,9 +6141,17 @@ sub system_update_column_family{
   die 'implement interface';
 }
 
+sub execute_cql_query{
+  my $self = shift;
+  my $query = shift;
+  my $compression = shift;
+
+  die 'implement interface';
+}
+
 package Cassandra::CassandraRest;
 BEGIN {
-  $Cassandra::CassandraRest::VERSION = '0.0.4';
+  $Cassandra::CassandraRest::VERSION = '0.0.5';
 }
 
 use strict;
@@ -5492,6 +6257,16 @@ sub insert{
   return $self->{impl}->insert($key, $column_parent, $column, $consistency_level);
 }
 
+sub add{
+  my ($self, $request) = @_;
+
+  my $key = ($request->{'key'}) ? $request->{'key'} : undef;
+  my $column_parent = ($request->{'column_parent'}) ? $request->{'column_parent'} : undef;
+  my $column = ($request->{'column'}) ? $request->{'column'} : undef;
+  my $consistency_level = ($request->{'consistency_level'}) ? $request->{'consistency_level'} : undef;
+  return $self->{impl}->add($key, $column_parent, $column, $consistency_level);
+}
+
 sub remove{
   my ($self, $request) = @_;
 
@@ -5500,6 +6275,15 @@ sub remove{
   my $timestamp = ($request->{'timestamp'}) ? $request->{'timestamp'} : undef;
   my $consistency_level = ($request->{'consistency_level'}) ? $request->{'consistency_level'} : undef;
   return $self->{impl}->remove($key, $column_path, $timestamp, $consistency_level);
+}
+
+sub remove_counter{
+  my ($self, $request) = @_;
+
+  my $key = ($request->{'key'}) ? $request->{'key'} : undef;
+  my $path = ($request->{'path'}) ? $request->{'path'} : undef;
+  my $consistency_level = ($request->{'consistency_level'}) ? $request->{'consistency_level'} : undef;
+  return $self->{impl}->remove_counter($key, $path, $consistency_level);
 }
 
 sub batch_mutate{
@@ -5619,9 +6403,17 @@ sub system_update_column_family{
   return $self->{impl}->system_update_column_family($cf_def);
 }
 
+sub execute_cql_query{
+  my ($self, $request) = @_;
+
+  my $query = ($request->{'query'}) ? $request->{'query'} : undef;
+  my $compression = ($request->{'compression'}) ? $request->{'compression'} : undef;
+  return $self->{impl}->execute_cql_query($query, $compression);
+}
+
 package Cassandra::CassandraClient;
 BEGIN {
-  $Cassandra::CassandraClient::VERSION = '0.0.4';
+  $Cassandra::CassandraClient::VERSION = '0.0.5';
 }
 
 
@@ -6209,6 +7001,64 @@ sub recv_insert{
   }
   return;
 }
+sub add{
+  my $self = shift;
+  my $key = shift;
+  my $column_parent = shift;
+  my $column = shift;
+  my $consistency_level = shift;
+
+    $self->send_add($key, $column_parent, $column, $consistency_level);
+  $self->recv_add();
+}
+
+sub send_add{
+  my $self = shift;
+  my $key = shift;
+  my $column_parent = shift;
+  my $column = shift;
+  my $consistency_level = shift;
+
+  $self->{output}->writeMessageBegin('add', TMessageType::CALL, $self->{seqid});
+  my $args = new Cassandra::Cassandra_add_args();
+  $args->{key} = $key;
+  $args->{column_parent} = $column_parent;
+  $args->{column} = $column;
+  $args->{consistency_level} = $consistency_level;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_add{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new Cassandra::Cassandra_add_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{ire}) {
+    die $result->{ire};
+  }
+  if (defined $result->{ue}) {
+    die $result->{ue};
+  }
+  if (defined $result->{te}) {
+    die $result->{te};
+  }
+  return;
+}
 sub remove{
   my $self = shift;
   my $key = shift;
@@ -6253,6 +7103,61 @@ sub recv_remove{
     die $x;
   }
   my $result = new Cassandra::Cassandra_remove_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{ire}) {
+    die $result->{ire};
+  }
+  if (defined $result->{ue}) {
+    die $result->{ue};
+  }
+  if (defined $result->{te}) {
+    die $result->{te};
+  }
+  return;
+}
+sub remove_counter{
+  my $self = shift;
+  my $key = shift;
+  my $path = shift;
+  my $consistency_level = shift;
+
+    $self->send_remove_counter($key, $path, $consistency_level);
+  $self->recv_remove_counter();
+}
+
+sub send_remove_counter{
+  my $self = shift;
+  my $key = shift;
+  my $path = shift;
+  my $consistency_level = shift;
+
+  $self->{output}->writeMessageBegin('remove_counter', TMessageType::CALL, $self->{seqid});
+  my $args = new Cassandra::Cassandra_remove_counter_args();
+  $args->{key} = $key;
+  $args->{path} = $path;
+  $args->{consistency_level} = $consistency_level;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_remove_counter{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new Cassandra::Cassandra_remove_counter_result();
   $result->read($self->{input});
   $self->{input}->readMessageEnd();
 
@@ -6756,6 +7661,9 @@ sub recv_describe_splits{
   if (defined $result->{success} ) {
     return $result->{success};
   }
+  if (defined $result->{ire}) {
+    die $result->{ire};
+  }
   die "describe_splits failed: unknown result";
 }
 sub system_add_column_family{
@@ -6801,6 +7709,9 @@ sub recv_system_add_column_family{
   }
   if (defined $result->{ire}) {
     die $result->{ire};
+  }
+  if (defined $result->{sde}) {
+    die $result->{sde};
   }
   die "system_add_column_family failed: unknown result";
 }
@@ -6848,6 +7759,9 @@ sub recv_system_drop_column_family{
   if (defined $result->{ire}) {
     die $result->{ire};
   }
+  if (defined $result->{sde}) {
+    die $result->{sde};
+  }
   die "system_drop_column_family failed: unknown result";
 }
 sub system_add_keyspace{
@@ -6893,6 +7807,9 @@ sub recv_system_add_keyspace{
   }
   if (defined $result->{ire}) {
     die $result->{ire};
+  }
+  if (defined $result->{sde}) {
+    die $result->{sde};
   }
   die "system_add_keyspace failed: unknown result";
 }
@@ -6940,6 +7857,9 @@ sub recv_system_drop_keyspace{
   if (defined $result->{ire}) {
     die $result->{ire};
   }
+  if (defined $result->{sde}) {
+    die $result->{sde};
+  }
   die "system_drop_keyspace failed: unknown result";
 }
 sub system_update_keyspace{
@@ -6985,6 +7905,9 @@ sub recv_system_update_keyspace{
   }
   if (defined $result->{ire}) {
     die $result->{ire};
+  }
+  if (defined $result->{sde}) {
+    die $result->{sde};
   }
   die "system_update_keyspace failed: unknown result";
 }
@@ -7032,11 +7955,72 @@ sub recv_system_update_column_family{
   if (defined $result->{ire}) {
     die $result->{ire};
   }
+  if (defined $result->{sde}) {
+    die $result->{sde};
+  }
   die "system_update_column_family failed: unknown result";
+}
+sub execute_cql_query{
+  my $self = shift;
+  my $query = shift;
+  my $compression = shift;
+
+    $self->send_execute_cql_query($query, $compression);
+  return $self->recv_execute_cql_query();
+}
+
+sub send_execute_cql_query{
+  my $self = shift;
+  my $query = shift;
+  my $compression = shift;
+
+  $self->{output}->writeMessageBegin('execute_cql_query', TMessageType::CALL, $self->{seqid});
+  my $args = new Cassandra::Cassandra_execute_cql_query_args();
+  $args->{query} = $query;
+  $args->{compression} = $compression;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_execute_cql_query{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new Cassandra::Cassandra_execute_cql_query_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{success} ) {
+    return $result->{success};
+  }
+  if (defined $result->{ire}) {
+    die $result->{ire};
+  }
+  if (defined $result->{ue}) {
+    die $result->{ue};
+  }
+  if (defined $result->{te}) {
+    die $result->{te};
+  }
+  if (defined $result->{sde}) {
+    die $result->{sde};
+  }
+  die "execute_cql_query failed: unknown result";
 }
 package Cassandra::CassandraProcessor;
 BEGIN {
-  $Cassandra::CassandraProcessor::VERSION = '0.0.4';
+  $Cassandra::CassandraProcessor::VERSION = '0.0.5';
 }
 
 use strict;
@@ -7277,6 +8261,27 @@ sub process_insert {
     $output->getTransport()->flush();
 }
 
+sub process_add {
+    my ($self, $seqid, $input, $output) = @_;
+    my $args = new Cassandra::Cassandra_add_args();
+    $args->read($input);
+    $input->readMessageEnd();
+    my $result = new Cassandra::Cassandra_add_result();
+    eval {
+      $self->{handler}->add($args->key, $args->column_parent, $args->column, $args->consistency_level);
+    }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
+      $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::UnavailableException') ){ 
+      $result->{ue} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::TimedOutException') ){ 
+      $result->{te} = $@;
+    }
+    $output->writeMessageBegin('add', TMessageType::REPLY, $seqid);
+    $result->write($output);
+    $output->writeMessageEnd();
+    $output->getTransport()->flush();
+}
+
 sub process_remove {
     my ($self, $seqid, $input, $output) = @_;
     my $args = new Cassandra::Cassandra_remove_args();
@@ -7293,6 +8298,27 @@ sub process_remove {
       $result->{te} = $@;
     }
     $output->writeMessageBegin('remove', TMessageType::REPLY, $seqid);
+    $result->write($output);
+    $output->writeMessageEnd();
+    $output->getTransport()->flush();
+}
+
+sub process_remove_counter {
+    my ($self, $seqid, $input, $output) = @_;
+    my $args = new Cassandra::Cassandra_remove_counter_args();
+    $args->read($input);
+    $input->readMessageEnd();
+    my $result = new Cassandra::Cassandra_remove_counter_result();
+    eval {
+      $self->{handler}->remove_counter($args->key, $args->path, $args->consistency_level);
+    }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
+      $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::UnavailableException') ){ 
+      $result->{ue} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::TimedOutException') ){ 
+      $result->{te} = $@;
+    }
+    $output->writeMessageBegin('remove_counter', TMessageType::REPLY, $seqid);
     $result->write($output);
     $output->writeMessageEnd();
     $output->getTransport()->flush();
@@ -7466,7 +8492,11 @@ sub process_describe_splits {
     $args->read($input);
     $input->readMessageEnd();
     my $result = new Cassandra::Cassandra_describe_splits_result();
-    $result->{success} = $self->{handler}->describe_splits($args->cfName, $args->start_token, $args->end_token, $args->keys_per_split);
+    eval {
+      $result->{success} = $self->{handler}->describe_splits($args->cfName, $args->start_token, $args->end_token, $args->keys_per_split);
+    }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
+      $result->{ire} = $@;
+    }
     $output->writeMessageBegin('describe_splits', TMessageType::REPLY, $seqid);
     $result->write($output);
     $output->writeMessageEnd();
@@ -7483,6 +8513,8 @@ sub process_system_add_column_family {
       $result->{success} = $self->{handler}->system_add_column_family($args->cf_def);
     }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
       $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::SchemaDisagreementException') ){ 
+      $result->{sde} = $@;
     }
     $output->writeMessageBegin('system_add_column_family', TMessageType::REPLY, $seqid);
     $result->write($output);
@@ -7500,6 +8532,8 @@ sub process_system_drop_column_family {
       $result->{success} = $self->{handler}->system_drop_column_family($args->column_family);
     }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
       $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::SchemaDisagreementException') ){ 
+      $result->{sde} = $@;
     }
     $output->writeMessageBegin('system_drop_column_family', TMessageType::REPLY, $seqid);
     $result->write($output);
@@ -7517,6 +8551,8 @@ sub process_system_add_keyspace {
       $result->{success} = $self->{handler}->system_add_keyspace($args->ks_def);
     }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
       $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::SchemaDisagreementException') ){ 
+      $result->{sde} = $@;
     }
     $output->writeMessageBegin('system_add_keyspace', TMessageType::REPLY, $seqid);
     $result->write($output);
@@ -7534,6 +8570,8 @@ sub process_system_drop_keyspace {
       $result->{success} = $self->{handler}->system_drop_keyspace($args->keyspace);
     }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
       $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::SchemaDisagreementException') ){ 
+      $result->{sde} = $@;
     }
     $output->writeMessageBegin('system_drop_keyspace', TMessageType::REPLY, $seqid);
     $result->write($output);
@@ -7551,6 +8589,8 @@ sub process_system_update_keyspace {
       $result->{success} = $self->{handler}->system_update_keyspace($args->ks_def);
     }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
       $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::SchemaDisagreementException') ){ 
+      $result->{sde} = $@;
     }
     $output->writeMessageBegin('system_update_keyspace', TMessageType::REPLY, $seqid);
     $result->write($output);
@@ -7568,8 +8608,33 @@ sub process_system_update_column_family {
       $result->{success} = $self->{handler}->system_update_column_family($args->cf_def);
     }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
       $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::SchemaDisagreementException') ){ 
+      $result->{sde} = $@;
     }
     $output->writeMessageBegin('system_update_column_family', TMessageType::REPLY, $seqid);
+    $result->write($output);
+    $output->writeMessageEnd();
+    $output->getTransport()->flush();
+}
+
+sub process_execute_cql_query {
+    my ($self, $seqid, $input, $output) = @_;
+    my $args = new Cassandra::Cassandra_execute_cql_query_args();
+    $args->read($input);
+    $input->readMessageEnd();
+    my $result = new Cassandra::Cassandra_execute_cql_query_result();
+    eval {
+      $result->{success} = $self->{handler}->execute_cql_query($args->query, $args->compression);
+    }; if( UNIVERSAL::isa($@,'Cassandra::InvalidRequestException') ){ 
+      $result->{ire} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::UnavailableException') ){ 
+      $result->{ue} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::TimedOutException') ){ 
+      $result->{te} = $@;
+        }; if( UNIVERSAL::isa($@,'Cassandra::SchemaDisagreementException') ){ 
+      $result->{sde} = $@;
+    }
+    $output->writeMessageBegin('execute_cql_query', TMessageType::REPLY, $seqid);
     $result->write($output);
     $output->writeMessageEnd();
     $output->getTransport()->flush();

@@ -1,3 +1,9 @@
+0.0.5   June 10, 2011
+        - Support for count and reverse in get_slice and get_count
+          functions. (thanks for jcbf, issue #4)
+        - Fix typo in sample.
+        - Upgrade Thrift interface to 0.8.1 generated version.
+
 0.0.4   April 18, 2011
         - Support consistency level.
 
