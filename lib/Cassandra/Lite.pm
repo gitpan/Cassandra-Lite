@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7/0.8
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.0.5';
+  $Cassandra::Lite::VERSION = '0.0.6';
 }
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ Cassandra::Lite - Simple way to access Cassandra 0.7/0.8
 
 =head1 VERSION
 
-version 0.0.5
+version 0.0.6
 
 =head1 DESCRIPTION
 
@@ -42,8 +42,9 @@ You'll need to install Thrift perl modules first to use Cassandra::Lite.
     my $columnFamily = 'BlogArticle';
     my $key = 'key12345';
 
-    # Insert it (timestamp is optional)
-    $c->insert($columnFamily, $key, {title => 'testing title', body => '...'}, {timestamp => time});
+    # Insert ("insert" is an alias of "put") it. (timestamp is optional)
+    $c->put($columnFamily, $key, {title => 'testing title', body => '...'}, {timestamp => time}); # OR
+    $c->insert($columnFamily, $key, {title => 'testing title', body => '...'});
 
     # Get slice
     my $res1 = $c->get_slice($columnFamily, $key);
@@ -55,10 +56,12 @@ You'll need to install Thrift perl modules first to use Cassandra::Lite.
     my $v1 = $c->get($columnFamily, $key, 'title');
 
     # Higher consistency level
-    my $v2 = $c->get($columnFamily, $key, 'title', {consistency_level => 'QUORUM'});
+    my $v2 = $c->get($columnFamily, $key, 'title', {consistency_level => 'QUORUM'}); # OR
+    my $v2 = $c->get($columnFamily, $key, 'title', {consistency_level => 'ALL'});
 
-    # Remove it
-    $c->remove($columnFamily, $key, {timestamp => time});       # You can specify timestamp (optional) and consistency_level (optional)
+    # Remove it ("remove" is an alias of "delete")
+    $c->delete($columnFamily, $key, {timestamp => time}); # You can specify timestamp (optional) and consistency_level (optional)
+    $c->remove($columnFamily, $key);
 
     # Change keyspace
     $c->keyspace('BlogArticleComment');
@@ -158,6 +161,25 @@ sub _trigger_keyspace {
     $self->client->set_keyspace($keyspace);
 }
 
+=head2 delete
+=cut
+
+sub delete {
+    my $self = shift;
+
+    my $columnFamily = shift;
+    my $key = shift;
+    my $column = shift;
+    my $opt = shift // {};
+
+    my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily});
+    my $timestamp = $opt->{timestamp} // time;
+
+    my $level = $self->_consistency_level_write($opt);
+
+    $self->client->remove($key, $columnPath, $timestamp, $level);
+}
+
 =head2 get
 =cut
 
@@ -240,21 +262,32 @@ sub get_slice {
 
 sub insert {
     my $self = shift;
+    $self->put(@_);
+}
+
+=head2 put
+=cut
+
+sub put {
+    my $self = shift;
 
     my $columnFamily = shift;
     my $key = shift;
+    my $columns = shift;
     my $opt = shift // {};
+
+    my $level = $self->_consistency_level_write($opt);
 
     # TODO: cache this
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
 
-    my $level = $self->_consistency_level_write($opt);
     my $column = Cassandra::Column->new;
 
-    while (my ($k, $v) = each %$opt) {
+    while (my ($k, $v) = each %$columns) {
         $column->{name} = $k;
         $column->{value} = $v;
         $column->{timestamp} = $opt->{timestamp} // time;
+
         $self->client->insert($key, $columnParent, $column, $level);
     }
 }
@@ -264,18 +297,7 @@ sub insert {
 
 sub remove {
     my $self = shift;
-
-    my $columnFamily = shift;
-    my $key = shift;
-    my $column = shift;
-    my $opt = shift // {};
-
-    my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily});
-    my $timestamp = $opt->{timestamp} // time;
-
-    my $level = $self->_consistency_level_write($opt);
-
-    $self->client->remove($key, $columnPath, $timestamp, $level);
+    $self->delete(@_);
 }
 
 =head1 SEEALSO

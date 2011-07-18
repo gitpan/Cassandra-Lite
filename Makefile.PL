@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
     'Thrift::Socket' => '0',
     'constant' => '0'
   },
-  'VERSION' => '0.0.5',
+  'VERSION' => '0.0.6',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -4,7 +4,7 @@
       "Gea-Suan Lin <gslin@gslin.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200009, CPAN::Meta::Converter version 2.110930",
+   "generated_by" : "Dist::Zilla version 4.200011, CPAN::Meta::Converter version 2.110930",
    "license" : [
       "bsd"
    ],
@@ -54,6 +54,6 @@
          "web" : "https://github.com/gslin/cassandra-lite-perl"
       }
    },
-   "version" : "0.0.5"
+   "version" : "0.0.6"
 }
 
