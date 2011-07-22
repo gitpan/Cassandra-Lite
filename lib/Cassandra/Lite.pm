@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7/0.8
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.0.6';
+  $Cassandra::Lite::VERSION = '0.0.7';
 }
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ Cassandra::Lite - Simple way to access Cassandra 0.7/0.8
 
 =head1 VERSION
 
-version 0.0.6
+version 0.0.7
 
 =head1 DESCRIPTION
 
@@ -55,9 +55,17 @@ You'll need to install Thrift perl modules first to use Cassandra::Lite.
     # Get a column
     my $v1 = $c->get($columnFamily, $key, 'title');
 
+    # Now we can search by multi-keys with same function
+    my $key2 = 'key56789';
+    my $res5 = $c->get($columnFamily, [$key, $key2], 'title');
+
+    # Same reason to get_slice and get_count
+    my $res6 = $c->get_slice($columnFamily, [$key, $key2], {range => ['sliceKeyStart', undef]});
+    my $num1 = $c->get_count($columnFamily, [$key, $key2]);
+
     # Higher consistency level
     my $v2 = $c->get($columnFamily, $key, 'title', {consistency_level => 'QUORUM'}); # OR
-    my $v2 = $c->get($columnFamily, $key, 'title', {consistency_level => 'ALL'});
+    my $v3 = $c->get($columnFamily, $key, 'title', {consistency_level => 'ALL'});
 
     # Remove it ("remove" is an alias of "delete")
     $c->delete($columnFamily, $key, {timestamp => time}); # You can specify timestamp (optional) and consistency_level (optional)
@@ -67,8 +75,8 @@ You'll need to install Thrift perl modules first to use Cassandra::Lite.
     $c->keyspace('BlogArticleComment');
 
     # Get count
-    my $num1 = $c->get_count('Foo', 'key1');
-    my $num2 = $c->get_count('Foo', 'key2', {consistency_level => 'ALL'});
+    my $num2 = $c->get_count('Foo', 'key1');
+    my $num3 = $c->get_count('Foo', 'key2', {consistency_level => 'ALL'});
 
     ...
 
@@ -194,6 +202,19 @@ sub get {
     my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily, column => $column});
     my $level = $self->_consistency_level_read($opt);
 
+    if ('ARRAY' eq ref $key) {
+        my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
+
+        my $sliceRange = Cassandra::SliceRange->new($opt);
+        $sliceRange->{start} = '';
+        $sliceRange->{finish} = '';
+
+        my $predicate = Cassandra::SlicePredicate->new;
+        $predicate->{slice_range} = $sliceRange;
+
+        return $self->client->multiget_slice($key, $columnParent, $predicate, $level);
+    }
+
     $self->client->get($key, $columnPath, $level);
 }
 
@@ -224,6 +245,17 @@ sub get_count {
 
     my $level = $self->_consistency_level_read($opt);
 
+    if ('ARRAY' eq ref $key) {
+        my $sliceRange = Cassandra::SliceRange->new($opt);
+        $sliceRange->{start} = '';
+        $sliceRange->{finish} = '';
+
+        my $predicate = Cassandra::SlicePredicate->new;
+        $predicate->{slice_range} = $sliceRange;
+
+        return $self->client->multiget_count($key, $columnParent, $predicate, $level);
+    }
+
     $self->client->get_count($key, $columnParent, $predicate, $level);
 }
 
@@ -253,6 +285,10 @@ sub get_slice {
     $predicate->{slice_range} = $sliceRange;
 
     my $level = $self->_consistency_level_read($opt);
+
+    if ('ARRAY' eq ref $key) {
+        return $self->client->multiget_slice($key, $columnParent, $predicate, $level);
+    }
 
     $self->client->get_slice($key, $columnParent, $predicate, $level);
 }
