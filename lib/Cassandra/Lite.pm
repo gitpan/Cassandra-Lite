@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7/0.8
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.0.7';
+  $Cassandra::Lite::VERSION = '0.1.0';
 }
 use strict;
 use warnings;
@@ -12,73 +12,53 @@ Cassandra::Lite - Simple way to access Cassandra 0.7/0.8
 
 =head1 VERSION
 
-version 0.0.7
+version 0.1.0
 
 =head1 DESCRIPTION
 
-This module will offer you a simple way to access Cassandra 0.7/0.8 (maybe later version).  Some parts are not same as standard API document (especially arguments order), it's because I want to keep this module easy to use.
+This module will offer you a simple way to access Cassandra 0.7/0.8 (maybe later version).
+Some parts are not same as standard API document (especially arguments order), it's because I want to keep this module easy to use.
 
-You'll need to install Thrift perl modules first to use Cassandra::Lite.
+You'll need to install L<Thrift> perl modules first to use Cassandra::Lite.
 
 =head1 SYNOPSIS
 
+First to initialize:
+
     use Cassandra::Lite;
 
-    # All supported options:
-    my $c = Cassandra::Lite->new(
-                server_name => 'server1',       # optional, default to '127.0.0.1'
-                server_port => 9160,            # optional, default to 9160
-                username => 'username',         # optional, default to empty string ''
-                password => 'xxx',              # optional, default to empty string ''
-                consistency_level_read => 'ONE' # optional, default to 'ONE'
-                consistency_level_write => 'ONE' # optional, default to 'ONE'
-                keyspace => 'Keyspace1',
-            );
-
-    # Usually we can use this in dev environment:
+    # Create with default options (C<keyspace> is a mantorary option):
     my $c = Cassandra::Lite->new(keyspace => 'Keyspace1');
 
     # Now just define $columnFamily and $key
     my $columnFamily = 'BlogArticle';
     my $key = 'key12345';
 
-    # Insert ("insert" is an alias of "put") it. (timestamp is optional)
-    $c->put($columnFamily, $key, {title => 'testing title', body => '...'}, {timestamp => time}); # OR
-    $c->insert($columnFamily, $key, {title => 'testing title', body => '...'});
+Then you can insert data:
 
-    # Get slice
-    my $res1 = $c->get_slice($columnFamily, $key);
-    my $res2 = $c->get_slice($columnFamily, $key, {range => ['sliceKeyStart', undef]});
-    my $res3 = $c->get_slice($columnFamily, $key, {range => [undef, 'sliceKeyFinish']});
-    my $res4 = $c->get_slice($columnFamily, $key, {range => ['sliceKeyStart', 'sliceKeyFinish']});
+    # Insert it.
+    $c->put($columnFamily, $key, {title => 'testing title', body => '...'});
+
+And get data:
 
     # Get a column
-    my $v1 = $c->get($columnFamily, $key, 'title');
+    my $scalarValue = $c->get($columnFamily, $key, 'title');
 
-    # Now we can search by multi-keys with same function
-    my $key2 = 'key56789';
-    my $res5 = $c->get($columnFamily, [$key, $key2], 'title');
+    # Get all columns
+    my $hashRef = $c->get($columnFamily, $key);
 
-    # Same reason to get_slice and get_count
-    my $res6 = $c->get_slice($columnFamily, [$key, $key2], {range => ['sliceKeyStart', undef]});
-    my $num1 = $c->get_count($columnFamily, [$key, $key2]);
+More, to delete data:
 
-    # Higher consistency level
-    my $v2 = $c->get($columnFamily, $key, 'title', {consistency_level => 'QUORUM'}); # OR
-    my $v3 = $c->get($columnFamily, $key, 'title', {consistency_level => 'ALL'});
+    # Remove it
+    $c->delete($columnFamily, $key);
 
-    # Remove it ("remove" is an alias of "delete")
-    $c->delete($columnFamily, $key, {timestamp => time}); # You can specify timestamp (optional) and consistency_level (optional)
-    $c->remove($columnFamily, $key);
+Others:
 
     # Change keyspace
     $c->keyspace('BlogArticleComment');
 
     # Get count
     my $num2 = $c->get_count('Foo', 'key1');
-    my $num3 = $c->get_count('Foo', 'key2', {consistency_level => 'ALL'});
-
-    ...
 
 =cut
 
@@ -93,6 +73,8 @@ has 'server_name' => (is => 'rw', isa => 'Str', default => '127.0.0.1');
 has 'server_port' => (is => 'rw', isa => 'Int', default => 9160);
 has 'socket' => (is => 'rw', isa => 'Thrift::Socket', lazy_build => 1);
 has 'transport' => (is => 'rw', isa => 'Thrift::FramedTransport', lazy_build => 1);
+has 'transport_read' => (is => 'rw', isa => 'Int', default => 1024);
+has 'transport_write' => (is => 'rw', isa => 'Int', default => 1024);
 has 'username' => (is => 'rw', isa => 'Str', default => '');
 
 use 5.010;
@@ -131,7 +113,7 @@ sub _build_socket {
 sub _build_transport {
     my $self = shift;
 
-    Thrift::FramedTransport->new($self->socket, 1024, 1024);
+    Thrift::FramedTransport->new($self->socket, $self->transport_read, $self->transport_write);
 }
 
 sub _consistency_level_read {
@@ -169,7 +151,31 @@ sub _trigger_keyspace {
     $self->client->set_keyspace($keyspace);
 }
 
-=head2 delete
+=item
+C<new>
+
+All supported options:
+
+    my $c = Cassandra::Lite->new(
+                server_name => 'server1',       # optional, default to '127.0.0.1'
+                server_port => 9160,            # optional, default to 9160
+                username => 'username',         # optional, default to empty string ''
+                password => 'xxx',              # optional, default to empty string ''
+                consistency_level_read => 'ONE' # optional, default to 'ONE'
+                consistency_level_write => 'ONE' # optional, default to 'ONE'
+                transport_read => 1024,         # optional, default to 1024
+                transport_write => 1024,        # optional, default to 1024
+                keyspace => 'Keyspace1',
+            );
+
+So, usually we can use this in dev environment:
+
+    my $c = Cassandra::Lite->new(keyspace => 'Keyspace1');
+
+=cut
+
+=item
+C<delete>
 =cut
 
 sub delete {
@@ -188,7 +194,34 @@ sub delete {
     $self->client->remove($key, $columnPath, $timestamp, $level);
 }
 
-=head2 get
+=item
+C<get($columnFamily, $key, $column, $options)>
+
+The simplest syntax is to get all columns:
+
+    my $cf = 'BlogArticle';
+    my $key1 = 'key12345';
+
+    my $allColumns = $c->get($cf, $key1);
+
+You can get a single column:
+
+    my $title = $c->get($cf, $key1, 'title');
+
+Also, you can get range column (this example will query from 'Column001' to 'Column999'):
+
+    my $columns = $c->get($cf, $key1, {start => 'Column001', finish => 'Column999'});
+
+With multiple keys:
+
+    my $key2 = 'key56789';
+
+    my $datas1 = $c->get($cf, [$key1, $key2]);
+    my $datas2 = $c->get($cf, [$key1, $key2], {start_key => 'Column001', end_key => 'Column999'});
+
+In order words, C<$key> can be scalar string (single key) or array reference (multiple keys).
+And C<$column> can be undef (to get all columns), scalar string (to get one column), or hash reference (to get columns by range).
+
 =cut
 
 sub get {
@@ -199,26 +232,44 @@ sub get {
     my $column = shift;
     my $opt = shift // {};
 
-    my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily, column => $column});
+    # Simple get is a totally different case.  It doesn't use columnParent.
+    if ('SCALAR' eq ref \$key and defined $column and 'SCALAR' eq ref \$column) {
+        my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily, column => $column});
+        my $level = $self->_consistency_level_read($opt);
+
+        return $self->client->get($key, $columnPath, $level);
+    }
+
+    my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
+
+    my $sliceRange;
+    if (!defined $column) {
+        $sliceRange = Cassandra::SliceRange->new({start => '', finish => ''});
+    } elsif ('HASH' eq ref $column) {
+        $sliceRange = Cassandra::SliceRange->new($column);
+    } elsif ('SCALAR' eq ref \$column) {
+        $sliceRange = Cassandra::SliceRange->new({start => $column, finish => $column});
+    } else {
+        die 'Not supported column type';
+    }
+
+    my $predicate = Cassandra::SlicePredicate->new;
+    $predicate->{slice_range} = $sliceRange;
+
     my $level = $self->_consistency_level_read($opt);
 
     if ('ARRAY' eq ref $key) {
-        my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
-
-        my $sliceRange = Cassandra::SliceRange->new($opt);
-        $sliceRange->{start} = '';
-        $sliceRange->{finish} = '';
-
-        my $predicate = Cassandra::SlicePredicate->new;
-        $predicate->{slice_range} = $sliceRange;
-
         return $self->client->multiget_slice($key, $columnParent, $predicate, $level);
+    } elsif ('HASH' eq ref $key) {
+        my $range = Cassandra::KeyRange->new($key);
+        return $self->client->get_range_slices($columnParent, $predicate, $range, $level);
     }
 
-    $self->client->get($key, $columnPath, $level);
+    $self->client->get_slice($key, $columnParent, $predicate, $level);
 }
 
-=head2 get_count
+=item
+C<get_count>
 =cut
 
 sub get_count {
@@ -228,10 +279,9 @@ sub get_count {
     my $key = shift;
     my $opt = shift;
 
-    # TODO: cache this
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
-
     my $sliceRange = Cassandra::SliceRange->new($opt);
+
     if (defined $opt->{range}) {
         $sliceRange->{start} = $opt->{range}->[0] // '';
         $sliceRange->{finish} = $opt->{range}->[1] // '';
@@ -259,49 +309,8 @@ sub get_count {
     $self->client->get_count($key, $columnParent, $predicate, $level);
 }
 
-=head2 get_slice
-=cut
-
-sub get_slice {
-    my $self = shift;
-
-    my $columnFamily = shift;
-    my $key = shift;
-    my $opt = shift;
-
-    # TODO: cache this
-    my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
-
-    my $sliceRange = Cassandra::SliceRange->new($opt);
-    if (defined $opt->{range}) {
-        $sliceRange->{start} = $opt->{range}->[0] // '';
-        $sliceRange->{finish} = $opt->{range}->[1] // '';
-    } else {
-        $sliceRange->{start} = '';
-        $sliceRange->{finish} = '';
-    }
-
-    my $predicate = Cassandra::SlicePredicate->new;
-    $predicate->{slice_range} = $sliceRange;
-
-    my $level = $self->_consistency_level_read($opt);
-
-    if ('ARRAY' eq ref $key) {
-        return $self->client->multiget_slice($key, $columnParent, $predicate, $level);
-    }
-
-    $self->client->get_slice($key, $columnParent, $predicate, $level);
-}
-
-=head2 insert
-=cut
-
-sub insert {
-    my $self = shift;
-    $self->put(@_);
-}
-
-=head2 put
+=item
+C<put>
 =cut
 
 sub put {
@@ -313,10 +322,7 @@ sub put {
     my $opt = shift // {};
 
     my $level = $self->_consistency_level_write($opt);
-
-    # TODO: cache this
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
-
     my $column = Cassandra::Column->new;
 
     while (my ($k, $v) = each %$columns) {
@@ -328,23 +334,19 @@ sub put {
     }
 }
 
-=head2 remove
-=cut
+=head1 SEE ALSO
 
-sub remove {
-    my $self = shift;
-    $self->delete(@_);
-}
+=over
 
-=head1 SEEALSO
+=item *
 
-=over 4
-
-=item Cassandra API
+Cassandra API
 
 L<http://wiki.apache.org/cassandra/API>
 
-=item Cassandra Thrift Interface
+=item *
+
+Cassandra Thrift Interface
 
 L<http://wiki.apache.org/cassandra/ThriftInterface>
 
@@ -358,9 +360,8 @@ Gea-Suan Lin, C<< <gslin at gslin.org> >>
 
 Copyright 2011 Gea-Suan Lin.
 
-This software is released under 3-clause BSD license. See
-L<http://www.opensource.org/licenses/bsd-license.php> for more
-information.
+This software is released under 3-clause BSD license.
+See L<http://www.opensource.org/licenses/bsd-license.php> for more information.
 
 =cut
 
