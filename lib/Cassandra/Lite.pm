@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7/0.8
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.1.0';
+  $Cassandra::Lite::VERSION = '0.2.0';
 }
 use strict;
 use warnings;
@@ -12,14 +12,19 @@ Cassandra::Lite - Simple way to access Cassandra 0.7/0.8
 
 =head1 VERSION
 
-version 0.1.0
+version 0.2.0
 
 =head1 DESCRIPTION
 
 This module will offer you a simple way to access Cassandra 0.7/0.8 (maybe later version).
 Some parts are not same as standard API document (especially arguments order), it's because I want to keep this module easy to use.
 
+Before using this module, you need to know about the basic model of Cassandra.
+L<http://wiki.apache.org/cassandra/DataModel> is a good start.
+
 You'll need to install L<Thrift> perl modules first to use Cassandra::Lite.
+
+B<WARNING: All API might be changed.>
 
 =head1 SYNOPSIS
 
@@ -152,7 +157,7 @@ sub _trigger_keyspace {
 }
 
 =item
-C<new>
+=head2 C<new(...)>
 
 All supported options:
 
@@ -175,7 +180,7 @@ So, usually we can use this in dev environment:
 =cut
 
 =item
-C<delete>
+=head2 C<delete($columnFamily, $key, $column, $options)>
 =cut
 
 sub delete {
@@ -195,7 +200,7 @@ sub delete {
 }
 
 =item
-C<get($columnFamily, $key, $column, $options)>
+=head2 C<get($columnFamily, $key, $column, $options)>
 
 The simplest syntax is to get all columns:
 
@@ -217,7 +222,14 @@ With multiple keys:
     my $key2 = 'key56789';
 
     my $datas1 = $c->get($cf, [$key1, $key2]);
-    my $datas2 = $c->get($cf, [$key1, $key2], {start_key => 'Column001', end_key => 'Column999'});
+    my $datas2 = $c->get($cf, [$key1, $key2], {start => 'Column001', finish => 'Column999'});
+
+With key range:
+
+    my $datas3 = $c->get($cf, {start_key => 'a', end_key => 'b'});
+    my $datas4 = $c->get($cf, {start_key => 'a', end_key => 'b'}, 'column');
+    my $datas5 = $c->get($cf, {start_key => 'a', end_key => 'b'},
+                         {start => 'Column001', finish => 'Column999'});
 
 In order words, C<$key> can be scalar string (single key) or array reference (multiple keys).
 And C<$column> can be undef (to get all columns), scalar string (to get one column), or hash reference (to get columns by range).
@@ -249,8 +261,6 @@ sub get {
         $sliceRange = Cassandra::SliceRange->new($column);
     } elsif ('SCALAR' eq ref \$column) {
         $sliceRange = Cassandra::SliceRange->new({start => $column, finish => $column});
-    } else {
-        die 'Not supported column type';
     }
 
     my $predicate = Cassandra::SlicePredicate->new;
@@ -269,7 +279,7 @@ sub get {
 }
 
 =item
-C<get_count>
+=head2 C<get_count($columnFamily, $key, $column, $options)>
 =cut
 
 sub get_count {
@@ -277,31 +287,18 @@ sub get_count {
 
     my $columnFamily = shift;
     my $key = shift;
+    my $column = shift;
     my $opt = shift;
 
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
-    my $sliceRange = Cassandra::SliceRange->new($opt);
-
-    if (defined $opt->{range}) {
-        $sliceRange->{start} = $opt->{range}->[0] // '';
-        $sliceRange->{finish} = $opt->{range}->[1] // '';
-    } else {
-        $sliceRange->{start} = '';
-        $sliceRange->{finish} = '';
-    }
-
-    my $predicate = Cassandra::SlicePredicate->new;
-    $predicate->{slice_range} = $sliceRange;
+    my $sliceRange = Cassandra::SliceRange->new($column);
+    my $predicate = Cassandra::SlicePredicate->new({slice_range => $sliceRange});
 
     my $level = $self->_consistency_level_read($opt);
 
     if ('ARRAY' eq ref $key) {
-        my $sliceRange = Cassandra::SliceRange->new($opt);
-        $sliceRange->{start} = '';
-        $sliceRange->{finish} = '';
-
-        my $predicate = Cassandra::SlicePredicate->new;
-        $predicate->{slice_range} = $sliceRange;
+        my $sliceRange = Cassandra::SliceRange->new($column);
+        my $predicate = Cassandra::SlicePredicate->new({slice_range => $sliceRange});
 
         return $self->client->multiget_count($key, $columnParent, $predicate, $level);
     }
@@ -310,7 +307,7 @@ sub get_count {
 }
 
 =item
-C<put>
+=head2 C<put($columnFamily, $key, $columns, $options)>
 =cut
 
 sub put {
