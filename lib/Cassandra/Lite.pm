@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7/0.8
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.2.0';
+  $Cassandra::Lite::VERSION = '0.2.1';
 }
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ Cassandra::Lite - Simple way to access Cassandra 0.7/0.8
 
 =head1 VERSION
 
-version 0.2.0
+version 0.2.1
 
 =head1 DESCRIPTION
 
@@ -24,7 +24,7 @@ L<http://wiki.apache.org/cassandra/DataModel> is a good start.
 
 You'll need to install L<Thrift> perl modules first to use Cassandra::Lite.
 
-B<WARNING: All API might be changed.>
+B<WARNING: All API might be changed during development version.>
 
 =head1 SYNOPSIS
 
@@ -157,7 +157,7 @@ sub _trigger_keyspace {
 }
 
 =item
-=head2 C<new(...)>
+C<new(...)>
 
 All supported options:
 
@@ -180,7 +180,7 @@ So, usually we can use this in dev environment:
 =cut
 
 =item
-=head2 C<delete($columnFamily, $key, $column, $options)>
+C<delete($columnFamily, $key, $column, $options)>
 =cut
 
 sub delete {
@@ -200,7 +200,7 @@ sub delete {
 }
 
 =item
-=head2 C<get($columnFamily, $key, $column, $options)>
+C<get($columnFamily, $key, $column, $options)>
 
 The simplest syntax is to get all columns:
 
@@ -279,7 +279,7 @@ sub get {
 }
 
 =item
-=head2 C<get_count($columnFamily, $key, $column, $options)>
+C<get_count($columnFamily, $key, $column, $options)>
 =cut
 
 sub get_count {
@@ -307,7 +307,7 @@ sub get_count {
 }
 
 =item
-=head2 C<put($columnFamily, $key, $columns, $options)>
+C<put($columnFamily, $key, $columns, $options)>
 =cut
 
 sub put {
