@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7/0.8
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.3.0';
+  $Cassandra::Lite::VERSION = '0.4.0';
 }
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ Cassandra::Lite - Simple way to access Cassandra 0.7/0.8
 
 =head1 VERSION
 
-version 0.3.0
+version 0.4.0
 
 =head1 DESCRIPTION
 
@@ -64,6 +64,9 @@ Others:
 
     # Get count
     my $num2 = $c->get_count('Foo', 'key1');
+
+    # Truncate column family
+    $c->truncate('Foo');
 
 =cut
 
@@ -180,7 +183,21 @@ So, usually we can use this in dev environment:
 =cut
 
 =item
-C<delete($columnFamily, $key, $column, $options)>
+C<cql($query)>
+=cut
+
+sub cql {
+    my $self = shift;
+
+    my $query = shift;
+
+    $self->client->execute_cql_query($query, Cassandra::Compression::NONE);
+}
+
+=item
+C<delete($columnFamily, $key, $options)>
+
+Delete entire row.
 =cut
 
 sub delete {
@@ -188,7 +205,6 @@ sub delete {
 
     my $columnFamily = shift;
     my $key = shift;
-    my $column = shift;
     my $opt = shift // {};
 
     my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily});
@@ -275,8 +291,14 @@ sub get {
     if ('ARRAY' eq ref $key) {
         my $ret = $self->client->multiget_slice($key, $columnParent, $predicate, $level);
 
-        while (my ($k, $columns) = each %$ret) {
-            $ret->{$k} = {map {$_->column->name => $_->column->value} @$columns};
+        if (defined $column and 'SCALAR' eq ref \$column) {
+            while (my ($k, $columns) = each %$ret) {
+                $ret->{$k} = $columns->[0]->column->value;
+            }
+        } else {
+            while (my ($k, $columns) = each %$ret) {
+                $ret->{$k} = {map {$_->column->name => $_->column->value} @$columns};
+            }
         }
 
         return $ret;
@@ -285,8 +307,15 @@ sub get {
         my $ret = $self->client->get_range_slices($columnParent, $predicate, $range, $level);
 
         my $ret2 = {};
-        foreach my $row (@$ret) {
-            $ret2->{$row->key} = {map {$_->column->name => $_->column->value} @{$row->columns}};
+
+        if (defined $column and 'SCALAR' eq ref \$column) {
+            foreach my $row (@$ret) {
+                $ret2->{$row->key} = $row->columns->[0]->column->value;
+            }
+        } else {
+            foreach my $row (@$ret) {
+                $ret2->{$row->key} = {map {$_->column->name => $_->column->value} @{$row->columns}};
+            }
         }
 
         return $ret2;
@@ -344,6 +373,20 @@ sub put {
 
         $self->client->insert($key, $columnParent, $column, $level);
     }
+}
+
+=item
+C<truncate($columnFamily)>
+
+Truncate entire column family.
+=cut
+
+sub truncate {
+    my $self = shift;
+
+    my $columnFamily = shift;
+
+    $self->client->truncate($columnFamily);
 }
 
 =head1 SEE ALSO
