@@ -1,7 +1,7 @@
 # ABSTRACT: Simple way to access Cassandra 0.7/0.8
 package Cassandra::Lite;
 BEGIN {
-  $Cassandra::Lite::VERSION = '0.2.1';
+  $Cassandra::Lite::VERSION = '0.3.0';
 }
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ Cassandra::Lite - Simple way to access Cassandra 0.7/0.8
 
 =head1 VERSION
 
-version 0.2.1
+version 0.3.0
 
 =head1 DESCRIPTION
 
@@ -249,7 +249,7 @@ sub get {
         my $columnPath = Cassandra::ColumnPath->new({column_family => $columnFamily, column => $column});
         my $level = $self->_consistency_level_read($opt);
 
-        return $self->client->get($key, $columnPath, $level);
+        return $self->client->get($key, $columnPath, $level)->column->value;
     }
 
     my $columnParent = Cassandra::ColumnParent->new({column_family => $columnFamily});
@@ -268,14 +268,29 @@ sub get {
 
     my $level = $self->_consistency_level_read($opt);
 
-    if ('ARRAY' eq ref $key) {
-        return $self->client->multiget_slice($key, $columnParent, $predicate, $level);
-    } elsif ('HASH' eq ref $key) {
-        my $range = Cassandra::KeyRange->new($key);
-        return $self->client->get_range_slices($columnParent, $predicate, $range, $level);
+    if ('SCALAR' eq ref \$key) {
+        return {map {$_->column->name => $_->column->value} @{$self->client->get_slice($key, $columnParent, $predicate, $level)}};
     }
 
-    $self->client->get_slice($key, $columnParent, $predicate, $level);
+    if ('ARRAY' eq ref $key) {
+        my $ret = $self->client->multiget_slice($key, $columnParent, $predicate, $level);
+
+        while (my ($k, $columns) = each %$ret) {
+            $ret->{$k} = {map {$_->column->name => $_->column->value} @$columns};
+        }
+
+        return $ret;
+    } elsif ('HASH' eq ref $key) {
+        my $range = Cassandra::KeyRange->new($key);
+        my $ret = $self->client->get_range_slices($columnParent, $predicate, $range, $level);
+
+        my $ret2 = {};
+        foreach my $row (@$ret) {
+            $ret2->{$row->key} = {map {$_->column->name => $_->column->value} @{$row->columns}};
+        }
+
+        return $ret2;
+    }
 }
 
 =item
